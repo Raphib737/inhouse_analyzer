@@ -30,8 +30,8 @@ class SummonerProfiles extends Component {
 
     var champ_list = [];
     for (var i in champs) {
-      let champ_name =
-          champs[i][0].charAt(0).toUpperCase() + champs[i][0].slice(1);
+      let champ_name = champs[i][0].charAt(0).toUpperCase() +
+          champs[i][0].slice(1).toLowerCase();
 
       let source = champ_name + '.png'
       champ_list.push(

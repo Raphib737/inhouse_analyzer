@@ -32,17 +32,22 @@ class Overview extends Component {
         } />);}
 
         let b_c = bannedChamps.slice(0,5);
+
         for(var c in b_c){
-            bannedC.push(<img className = 'OchampsPBImage' src= {images[b_c[c][0] + '.png']}></img>)
+            var n = b_c[c][0][0].toUpperCase() + b_c[c][0].slice(1).toLowerCase() + '.png';
+        bannedC.push(
+            <img className = 'OchampsPBImage' src = {images[n]}>
+            </img>)
       }
 
       let p_c = pickedChamps.slice(0, 5);
       for (var c in p_c) {
+        var m = p_c[c][0][0].toUpperCase() + p_c[c][0].slice(1).toLowerCase() +
+            '.png'
         pickedC.push(
-            <img className =
-                 'OchampsPBImage' src = {images[p_c[c][0] + '.png']}>
+            <img className = 'OchampsPBImage' src = {images[m]}>
             </img>)
-  }
+      }
     }
 
 

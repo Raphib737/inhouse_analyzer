@@ -14,7 +14,7 @@ const importAll = require => require.keys().reduce((acc, next) => {
 const images =
     importAll(require.context('./images/champion_squares', false, /\.(png)$/));
 
-console.log(images);
+// console.log(images);
 const rolesImages =
     importAll(require.context('./images/roles', false, /\.(png)$/));
 

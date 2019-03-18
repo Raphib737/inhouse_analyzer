@@ -71,7 +71,7 @@ class App extends Component {
         newState[states[i]] = false;
       }
     }
-    console.log(activeState);
+
     if (activeState == 'season1') {
       newState['response'] = this.state.season1Data;
     } else if (activeState == 'overall') {

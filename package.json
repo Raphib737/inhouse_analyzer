@@ -2,13 +2,16 @@
     "name": "inhouse_analyzer",
     "version": "1.0.0",
     "scripts": {
+        "client-install": "npm install --prefix client",
         "client": "cd client && yarn start",
         "server": "nodemon server.js",
-        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "dependencies": {
         "body-parser": "^1.18.3",
         "canvasjs": "^1.8.1",
+        "cors": "^2.8.5",
         "express": "^4.16.4"
     },
     "devDependencies": {

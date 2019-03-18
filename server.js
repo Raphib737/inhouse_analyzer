@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var overviewSeason2Data = require('./overview_data/season_2.json');
 var overviewSeason1Data = require('./overview_data/season_1.json');
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // var overviewSeason1Data = require('./overview_data/season_1.json');
 app.get('/api/season/2/overview', (req, res) => {

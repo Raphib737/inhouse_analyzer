@@ -19,8 +19,11 @@ class App extends Component {
     activeSeason: '',
     season2: false,
     season1: false,
+    overall: false,
+    overallData: false,
     season2Data: '',
     season1Data: '',
+    totalData: '',
   };
 
   componentDidMount() {
@@ -30,6 +33,10 @@ class App extends Component {
 
     this.callApi(2)
         .then(res => this.setState({season2Data: res}))
+        .catch(err => console.log(err));
+
+    this.callApi('total')
+        .then(res => this.setState({totalData: res}))
         .catch(err => console.log(err));
   }
   callApi = async (season) => {
@@ -59,7 +66,7 @@ class App extends Component {
   activateSeason(e) {
     let activeState = e.target.getAttribute('value');
     let newState = {activeSeason: activeState};
-    let states = ['season1', 'season2'];
+    let states = ['season1', 'season2', 'overall'];
     for (var i in states) {
       if (activeState === states[i]) {
         newState[states[i]] = true;
@@ -70,6 +77,8 @@ class App extends Component {
 
     if (activeState == 'season1') {
       newState['response'] = this.state.season1Data;
+    } else if (activeState == 'overall') {
+      newState['response'] = this.state.overallData;
     } else {
       newState['response'] = this.state.season2Data;
     }
@@ -82,6 +91,7 @@ class App extends Component {
     let cClass = this.state.champions ? 'active' : '';
     let s2Class = this.state.season2 ? 'active' : '';
     let s1Class = this.state.season1 ? 'active' : '';
+    let overallClass = this.state.overall ? 'active' : '';
 
     let elementToLoad = [];
     // elementToLoad.push(<Overview data = {
@@ -108,6 +118,10 @@ class App extends Component {
         </li><li>
         <a className = {s2Class} href = '#' value='season2' onClick =
              {this.activateSeason.bind(this)}>Season 2</a>
+        </li>
+        <li>
+        <a className = {overallClass} href = '#' value='overall' onClick =
+             {this.activateSeason.bind(this)}>Overall</a>
         </li>
         </ul>
 

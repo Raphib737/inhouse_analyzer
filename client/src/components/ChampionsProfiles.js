@@ -26,13 +26,11 @@ class ChampionsProfiles extends Component {
     // console.log(this.props.data);
     let d = this.props.data;
     let champ_pic,
-        source =
-            d['name'].charAt(0).toUpperCase() + d['name'].slice(1) + '.png';
+        source = d['name'].charAt(0).toUpperCase() +
+        d['name'].slice(1).toLowerCase() + '.png';
     let roles_element = [];
     for (var r in d['role']) {
       let r_i = d['role'][r].toLowerCase() + '.png';
-      console.log(r_i);
-      console.log(rolesImages[r_i]);
       roles_element.push(<img className = 'CrolesImage' src={rolesImages[r_i]}></img>)
     }
 

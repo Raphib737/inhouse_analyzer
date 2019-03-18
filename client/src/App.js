@@ -25,8 +25,8 @@ class App extends Component {
   callApi = async () => {
     // var loc = window.location.href.split('/'), season = loc[loc.length - 2];
     // let url = '/api/season/' + season + '/overview';
-    url = '/api/season/2/'
-    console.log(url)
+    var url = '/api/season/2/';
+    console.log(url);
     const response = await fetch(url);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);

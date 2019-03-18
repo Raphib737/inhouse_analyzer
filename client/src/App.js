@@ -16,6 +16,7 @@ class App extends Component {
     overview: true,
     champions: false
   };
+
   componentDidMount() {
     this.callApi()
         .then(res => this.setState({response: res}))

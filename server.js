@@ -24,11 +24,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // var overviewSeason1Data = require('./overview_data/season_1.json');
-app.get('/api/season/2/', (req, res) => {
+app.get('/api/season/2', (req, res) => {
   res.send(overviewSeason2Data);
 });
 
-app.get('/api/season/1/', (req, res) => {
+app.get('/api/season/1', (req, res) => {
   res.send(overviewSeason1Data);
 });
 

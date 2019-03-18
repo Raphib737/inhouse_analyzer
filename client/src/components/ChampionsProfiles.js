@@ -14,6 +14,7 @@ const importAll = require => require.keys().reduce((acc, next) => {
 const images =
     importAll(require.context('./images/champion_squares', false, /\.(png)$/));
 
+console.log(images);
 const rolesImages =
     importAll(require.context('./images/roles', false, /\.(png)$/));
 
@@ -30,6 +31,8 @@ class ChampionsProfiles extends Component {
     let roles_element = [];
     for (var r in d['role']) {
       let r_i = d['role'][r].toLowerCase() + '.png';
+      console.log(r_i);
+      console.log(rolesImages[r_i]);
       roles_element.push(<img className = 'CrolesImage' src={rolesImages[r_i]}></img>)
     }
 

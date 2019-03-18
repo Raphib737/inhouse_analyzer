@@ -23,8 +23,9 @@ class App extends Component {
         .catch(err => console.log(err));
   }
   callApi = async () => {
-    var loc = window.location.href.split('/'), season = loc[loc.length - 2];
-    let url = '/api/season/' + season + '/overview';
+    // var loc = window.location.href.split('/'), season = loc[loc.length - 2];
+    // let url = '/api/season/' + season + '/overview';
+    url = '/api/season/2/'
     console.log(url)
     const response = await fetch(url);
     const body = await response.json();

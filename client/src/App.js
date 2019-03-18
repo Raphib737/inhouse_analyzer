@@ -25,6 +25,7 @@ class App extends Component {
   callApi = async () => {
     var loc = window.location.href.split('/'), season = loc[loc.length - 2];
     let url = '/api/season/' + season + '/overview';
+    console.log(url)
     const response = await fetch(url);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
@@ -62,23 +63,24 @@ class App extends Component {
       }else if(this.state.active === 'champions'){
           elementToLoad.push(<Champions data = {this.state.response}/>);
     } else {
-          elementToLoad.push(<Summoners data = {
-        this.state.response}/>);
-      }
-      return (
-          <div className = 'main'><ul className = 'navbar'><li>
-          <a className = {oClass} href = '#' onClick = {this.activateState.bind(
-               this)}>Overview</a >
+      elementToLoad.push(<div></div>);
+      //   elementToLoad.push(<Summoners data = {
+        // this.state.response}/>);
+    }
+    return (
+        <div className = 'main'><ul className = 'navbar'><li>
+        <a className = {oClass} href = '#' onClick = {this.activateState.bind(
+             this)}>Overview</a >
         </li><li>
-          <a className = {sClass} href = '#Summoners' onClick =
-               {this.activateState.bind(this)}>Summoners</a>
+        <a className = {sClass} href = '#Summoners' onClick =
+             {this.activateState.bind(this)}>Summoners</a>
         </li><li>
-          <a className = {cClass} href = '#Champions' onClick =
-               {this.activateState.bind(this)}>Champions</a>
+        <a className = {cClass} href = '#Champions' onClick =
+             {this.activateState.bind(this)}>Champions</a>
         </li>
-          </ul>{elementToLoad}
+        </ul>{elementToLoad}
         </div>);
-  }
+    }
   }
 
   export default App;

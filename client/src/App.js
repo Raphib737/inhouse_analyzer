@@ -20,10 +20,9 @@ class App extends Component {
     season2: false,
     season1: false,
     overall: false,
-    overallData: false,
+    overallData: '',
     season2Data: '',
     season1Data: '',
-    totalData: '',
   };
 
   componentDidMount() {
@@ -35,8 +34,8 @@ class App extends Component {
         .then(res => this.setState({season2Data: res}))
         .catch(err => console.log(err));
 
-    this.callApi('total')
-        .then(res => this.setState({totalData: res}))
+    this.callApi('overall')
+        .then(res => this.setState({overallData: res}))
         .catch(err => console.log(err));
   }
   callApi = async (season) => {
@@ -74,7 +73,7 @@ class App extends Component {
         newState[states[i]] = false;
       }
     }
-
+    console.log(activeState);
     if (activeState == 'season1') {
       newState['response'] = this.state.season1Data;
     } else if (activeState == 'overall') {
@@ -82,6 +81,8 @@ class App extends Component {
     } else {
       newState['response'] = this.state.season2Data;
     }
+
+    console.log(newState);
     this.setState(newState);
   };
 

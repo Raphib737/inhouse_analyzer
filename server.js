@@ -12,6 +12,7 @@ app.use(cors());
 
 var overviewSeason2Data = require('./overview_data/season_2.json');
 var overviewSeason1Data = require('./overview_data/season_1.json');
+var overviewOverallData = require('./overview_data/overall.json')
 
 
 
@@ -32,6 +33,10 @@ app.get('/api/season/2', (req, res) => {
 
 app.get('/api/season/1', (req, res) => {
   res.send(overviewSeason1Data);
+});
+
+app.get('/api/season/overall', (req, res) => {
+  res.send(overviewOverallData);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

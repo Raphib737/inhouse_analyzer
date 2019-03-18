@@ -5,13 +5,15 @@ const path = require('path');
 const port = process.env.PORT || 5000;
 const cors = require('cors');
 
-app.unsubscribe(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(cors());
 
 var overviewSeason2Data = require('./overview_data/season_2.json');
 var overviewSeason1Data = require('./overview_data/season_1.json');
+
+
 
 // production mode
 if (process.env.NODE_ENV === 'production') {

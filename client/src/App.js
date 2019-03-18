@@ -42,8 +42,8 @@ class App extends Component {
     var url = '/api/season/' + season;
     console.log(url);
     const response = await fetch(url);
+    console.log(response);
     const body = await response.json();
-    console.log(body.message)
     if (response.status !== 200) throw Error(body.message);
     return body;
   };

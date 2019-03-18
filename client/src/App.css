@@ -137,8 +137,9 @@ a:hover{
 }
 
 .OchampsPBImage{
-    width: 100px;
-    margin-right: 5px;
+    width: 115px;
+    margin: 5px;
+    display:inline-block;
 }
 .CProfiles{
     width:200px;

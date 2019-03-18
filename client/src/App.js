@@ -92,10 +92,7 @@ class App extends Component {
     let overallClass = this.state.overall ? 'active' : '';
 
     let elementToLoad = [];
-    // elementToLoad.push(<Overview data = {
-    //   this.state.response} />);
-    // elementToLoad.push(<Champions data = {
-    //   this.state.response}/>);
+
     if (this.state.activeTab === 'overview') {
       elementToLoad.push(<Overview data = {
         this.state.response
@@ -103,37 +100,39 @@ class App extends Component {
       }else if(this.state.activeTab === 'champions'){
           elementToLoad.push(<Champions data = {this.state.response}/>);
     } else {
-      elementToLoad.push(<div></div>);
-      //   elementToLoad.push(<Summoners data = {
-        // this.state.response}/>);
+      elementToLoad.push(
+          <Summoners data =
+           {
+             this.state.response['summoners']
+           } />);
     }
     return (
         <div className = 'main'>
         
         <ul className = 'navbar'><li>
         <a className = {s1Class} href = '#' value='season1' onClick = {this.activateSeason.bind(
-             this)}>Season 1</a >
-        </li><li>
+             this)}>Season 1</a>
+          </li><li>
         <a className = {s2Class} href = '#' value='season2' onClick =
              {this.activateSeason.bind(this)}>Season 2</a>
-        </li>
+          </li>
         <li>
         <a className = {overallClass} href = '#' value='overall' onClick =
              {this.activateSeason.bind(this)}>Overall</a>
-        </li>
+          </li>
         </ul>
 
-        <ul className = 'navbar'><li>
-        <a className = {oClass} href = '#' onClick = {this.activateState.bind(
-             this)}>Overview</a >
+          <ul className = 'navbar'><li>
+          <a className = {oClass} href = '#' onClick = {this.activateState.bind(
+               this)}>Overview</a >
         </li><li>
-        <a className = {sClass} href = '#' onClick =
-             {this.activateState.bind(this)}>Summoners</a>
+          <a className = {sClass} href = '#' onClick = {this.activateState.bind(
+               this)}>Summoners</a>
         </li><li>
-        <a className = {cClass} href = '#' onClick =
-             {this.activateState.bind(this)}>Champions</a>
+          <a className = {cClass} href = '#' onClick = {this.activateState.bind(
+               this)}>Champions</a>
         </li>
-        </ul>{elementToLoad}
+          </ul>{elementToLoad}
         </div>);
     }
   }

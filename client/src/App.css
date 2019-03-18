@@ -185,3 +185,77 @@ a:hover{
 .Crates{
     font-size: 22px;
 }
+
+.SsummonerProfile{
+    width: 100%;
+    height: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+.SsummonerName{
+    display: inline-block;
+    width: 100%;
+    height:40px;
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: underline;
+    background: black;
+    color: white
+}
+
+.SratingGraphContainer{
+    width:20%;
+    height:25%;
+    float:left;
+}
+.SratingGraph{
+    
+}
+
+.Sroles{
+    width: 80%;
+    display:inline-block;
+    height: 100%;
+    background: white;
+    padding-bottom: 10px
+}
+
+.SroleName{
+    text-align: center;
+    float: left;
+    width: 100%;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.SroleImage{
+    width: 50%;
+}
+.SroleContainer{
+    width:18%;
+    float: left;
+    text-align:center;
+}
+
+.Svision{
+    width: 100%;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 16px
+}
+
+.SchampPicks{
+    text-align:center;
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.SchampImage{
+    width:45px;
+    height:45px;
+    margin-right: 5px;
+}

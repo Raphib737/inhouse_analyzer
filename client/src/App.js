@@ -33,7 +33,7 @@ class App extends Component {
         .catch(err => console.log(err));
   }
   callApi = async (season) => {
-    var url = '/api/' +
+    var url = 'localhost:5000/api/' +
         'season/' + season;
     console.log(url);
     const response = await fetch(url);

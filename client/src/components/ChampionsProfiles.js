@@ -17,7 +17,6 @@ const images =
 const rolesImages =
     importAll(require.context('./images/roles', false, /\.(png)$/));
 
-console.log(rolesImages)
 class ChampionsProfiles extends Component {
   constructor(props) {
     super();

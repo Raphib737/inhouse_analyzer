@@ -15,18 +15,16 @@ var overviewSeason1Data = require('./overview_data/season_1.json');
 var overviewOverallData = require('./overview_data/overall.json')
 
 
-
+console.log(overviewOverallData);
 // production mode
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
-
 
   app.get('*', (req, res) => {
     res.sendfile(path.join(__dirname = 'client/build/index.html'));
   })
 }
 
-// var overviewSeason1Data = require('./overview_data/season_1.json');
 app.get('/api/season/2', (req, res) => {
   res.send(overviewSeason2Data);
 });

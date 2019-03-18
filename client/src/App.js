@@ -40,9 +40,7 @@ class App extends Component {
   }
   callApi = async (season) => {
     var url = '/api/season/' + season;
-    console.log(url);
     const response = await fetch(url);
-    console.log(response);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;

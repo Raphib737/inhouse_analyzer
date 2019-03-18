@@ -157,8 +157,20 @@ a:hover{
     width:100%;
     height:120px;
     margin-bottom: 5px;
+    display:inline-block
 }
 
+.Croles{
+    width:100%;
+    display:inline-block;
+    height:50px;
+    margin-bottom: 3px;
+}
+
+.CrolesImage{
+    width:50px;
+    display:inline-block
+}
 .Cchamp{
     width:100%;
     height:95%;

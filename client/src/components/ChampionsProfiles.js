@@ -17,24 +17,29 @@ const images =
 const rolesImages =
     importAll(require.context('./images/roles', false, /\.(png)$/));
 
+console.log(rolesImages)
 class ChampionsProfiles extends Component {
   constructor(props) {
     super();
   }
   render() {
     // console.log(this.props.data);
-    let d = this.props.data
+    let d = this.props.data;
     let champ_pic,
         source =
             d['name'].charAt(0).toUpperCase() + d['name'].slice(1) + '.png';
+    let roles_element = [];
+    for (var r in d['role']) {
+      let r_i = d['role'][r].toLowerCase() + '.png';
+      roles_element.push(<img className = 'CrolesImage' src={rolesImages[r_i]}></img>)
+    }
 
-    champ_pic =
-        <img className = 'Cchamps' src = {images[source]}>
-        </img>
-
-    return (<div className = 'CProfiles'><div className="Cname">{d['name']}</div>
+    champ_pic = <img className = 'Cchamps' src = {images[source]}><
+        /img>
+    return (<div className = 'CProfiles'><div className='Cname'>{d['name']}</div>
         <div className = 'Cpicture'>{champ_pic}<
-            /div><div className="Crates">Win: {d['won']} &nbsp;  
+            /div><div className='Croles'>{roles_element}</div>
+        <div className = 'Crates'>Won: {d['won']}&nbsp;
             Lost: {d['lost']}<br></br>
             Win Rate: {d['win rate']}<br></br>Ban Rate: {d['ban rate']}</div><
         /div>)

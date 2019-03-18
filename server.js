@@ -17,11 +17,14 @@ var overviewOverallData = require('./overview_data/overall.json')
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.get('*', (req, res) => {
+  app.get('/', (req, res) => {
     res.sendfile(path.join(__dirname = 'client/build/index.html'));
   })
 }
-
+else {app.get(
+    '/',
+    (req,
+     res) => {res.sendfile(path.join(__dirname = 'client/public/index.html'))})}
 
 app.get('/api/season/2', (req, res) => {
   res.send(overviewSeason2Data);

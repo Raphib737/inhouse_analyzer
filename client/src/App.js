@@ -82,7 +82,6 @@ class App extends Component {
       newState['response'] = this.state.season2Data;
     }
 
-    console.log(newState);
     this.setState(newState);
   };
 

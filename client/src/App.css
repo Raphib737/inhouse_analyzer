@@ -238,7 +238,7 @@ a:hover{
 }
 .SroleContainer{
     width:18%;
-    float: left;
+    display:inline-block;
     text-align:center;
 }
 

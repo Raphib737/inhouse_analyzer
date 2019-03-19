@@ -202,7 +202,8 @@ a:hover{
     font-weight: bold;
     text-decoration: underline;
     background: black;
-    color: white
+    color: white;
+    padding-bottom: 10px
 }
 
 .SratingGraphContainer{
@@ -231,7 +232,6 @@ a:hover{
     font-size: 28px;
     font-weight: bold;
     text-decoration: underline;
-    padding-bottom: 5px;
 }
 
 .SroleImage{

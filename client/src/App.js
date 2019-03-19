@@ -99,13 +99,13 @@ class App extends Component {
       } />);
       }else if(this.state.activeTab === 'champions'){
           elementToLoad.push(<Champions data = {this.state.response}/>);
-    } else {
+    } else if (this.state.activeTab === 'summoners') {
       elementToLoad.push(
           <Summoners data =
            {
              this.state.response['summoners']
            } />);
-    }
+    } 
     return (
         <div className = 'main'>
         

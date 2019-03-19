@@ -24,9 +24,10 @@ class SummonerInDepth extends Component {
   render() {
     let d = this.props.data;
 
-    const options = {
+    const wrOptions = {
       animationEnabled: true,
       title: {'text': 'Win Rate: ' + d['win rate']},
+      height: 500,
       data: [{
         type: 'pie',
         showInLegend: false,
@@ -38,12 +39,8 @@ class SummonerInDepth extends Component {
       }]
     };
 
-    var roleElements = []
-    console.log(d['summoner']);
+    var roleElements = [];
     for (var i in d['role']) {
-      console.log(i);
-      console.log(d['role'][i]);
-
       var champPics = [];
       for (var c in d['role'][i]['champions']) {
         let imgName = c[0].toUpperCase() + c.slice(1).toLowerCase() + '.png';
@@ -55,27 +52,61 @@ class SummonerInDepth extends Component {
           <div className = 'SroleContainer'><div className = 'SroleName'><img className="SroleImage" src={rolesImages[i.toLowerCase()+ ".png"]}
 ></img>
             </div>
-            <div className = 'Svision'>Vision Score:
-                {d['role'][i]['average vision score']}<br>
+            <div className = 'Svision'>Win Rate:{d['role'][i]['win rate']}<br></br>
+
+                Vision Score: {d['role'][i]['average vision score']}<br>
             </br>
-                Game Time: {d['role'][i]['average game duration']}<
-                    /div>
-            <div className = 'SchampPicks'>{champPics}</div>
+                Game Time: {d['role'][i]['average game duration']}
+            </div>
+            <div className = 'SchampPicks'>Champion Pool<br>
+            </br>{champPics}</div>
             </div>)
       }
 
-    return (<div className = 'SsummonerProfile'>
-            <div className = 'SsummonerName'>{d['summoner']}<
-                /div>
+    let partnersList = [];
+    for(var p in d['partners']){
+        let dP = d['partners'][p];
+        let Poptions = {
+            animationEnabled: true,
+            title: {'text': dP['win rate'] + ' w/ ' + p},
+            height:160,
+            data: [{
+                type: 'pie',
+                showInLegend: false,
+                startAngle: 270,
+                indexLabel: '',
+                indexLabelFontSize: 1,
+                indexLabelLineThickness: 0,
+                dataPoints: [
+                    {label: 'Lost', y: dP['lost'], color: 'red'},
+                    {label: 'Won', y: dP['won'], color: '#003366'}
+                ]
+            }]
+      };
+      partnersList.push(<div className = 'SpartnerGraph'>
+                        <CanvasJSChart options = {
+                          Poptions
+                        } />
+            </div>)
+    }
+
+    return (
+        <div className = 'SsummonerProfile'>
+        <div className = 'SsummonerName'>{d['summoner']}<
+            /div>
             <div className = 'SratingGraphContainer'>
             <CanvasJSChart className = 'SratingGraph' options =
              {
-               options
+               wrOptions
              } />
-        </div>
-            <div className = 'Sroles'>{roleElements}</div>
+        </div><div className = 'Sroles'><div className = "SrolesHeader">Roles</div>{
+            roleElements}<
+            /div>
+        <div className = 'Spartners'><div className = 'SpartnersHeader'> Partners Win Rate
+        </div>{
+            partnersList}</div>
         </div>);
-      }
-    }
+  }
+}
 
-    export default SummonerInDepth;
+export default SummonerInDepth;

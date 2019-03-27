@@ -43,7 +43,6 @@ class SummonerInDepth extends Component {
     for(var i in d['role']) {
       var champPics = [];
       for(var c in d['role'][i]['champions']) {
-        console.log(d['role'][i])
         let imgName = c[0].toUpperCase() + c.slice(1).toLowerCase() + '.png';
         champPics.push(
           <img className='SchampImage' src={images[imgName]}>

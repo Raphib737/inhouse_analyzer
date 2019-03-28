@@ -18,7 +18,6 @@ const images =
 const rolesImages =
   importAll(require.context('./images/roles', false, /\.(png)$/));
 
-console.log(images)
 class ChampionsProfiles extends Component {
   constructor(props) {
     super();
@@ -29,7 +28,6 @@ class ChampionsProfiles extends Component {
     let champ_pic,
       source = d['name'].charAt(0).toUpperCase() +
         d['name'].slice(1).toLowerCase() + '.png';
-    console.log(source)
     let roles_element = [];
     for(var r in d['role']) {
       let r_i = d['role'][r].toLowerCase() + '.png';
@@ -45,7 +43,7 @@ class ChampionsProfiles extends Component {
             Lost: {d['lost']}<br></br>
             Win Rate: {d['win rate']}<br></br>Ban Rate: {d['ban rate']}</div><
         /div>)
-        }
-      };
-      
+          }
+        };
+        
 export default ChampionsProfiles;

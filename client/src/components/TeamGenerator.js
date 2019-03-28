@@ -4,153 +4,206 @@ import React, {Component} from 'react';
 
 
 class TeamGenerator extends Component {
-    constructor(props) {
-        super();
-        this.state = {
-            blueTeam: [],
-            redTeam: [],
-            players: [],
-            player: '',
-            rRate: '',
-            bRate: ''
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.deletePlayer = this.deletePlayer.bind(this);
-        this.randomSplit = this.randomSplit.bind(this);
-        this.winRateSplit = this.winRateSplit.bind(this);
+  constructor(props) {
+    super();
+    this.state = {
+      blueTeam: [],
+      redTeam: [],
+      players: [],
+      player: '',
+      rRate: '',
+      bRate: ''
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.deletePlayer = this.deletePlayer.bind(this);
+    this.randomSplit = this.randomSplit.bind(this);
+    this.winRateSplit = this.winRateSplit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({player: event.target.value});
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    var ps = this.state.players, d = {},
+      summs = this.props.data['summoners']['sorted_summoners'],
+      p = this.state.player;
+    for(var i in summs) {
+      if(summs[i].toLowerCase() == this.state.player.toLowerCase()) {
+        p = summs[i]
+      }
+    }
+    ps.indexOf(p) === -1 ? ps.push(p) : console.log('duplicate value');
+
+    d['players'] = ps;
+    d['player'] = '';
+    this.setState(d)
+  }
+
+  deletePlayer(e) {
+    var summ = e.target.value, newState = this.state.players;
+    for(var i in newState) {
+      if(newState[i] == summ) {
+        newState.splice(i, 1);
+      }
+    }
+    this.setState({'players': newState})
+  }
+
+  randomSplit(e) {
+    let d = this.props.data;
+    d = d['summoners'];
+
+    var ps = this.state.players.slice(),
+      teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0};
+    for(var i = 0;i < 1000;i++) {
+      this.shuffle(ps)
+    }
+    var half = Math.ceil(ps.length / 2);
+    var numRates = 0
+
+    for(var i = 0;i < half;i++) {
+      teams['blueTeam'].push(ps[i])
+      if(d[ps[i]]) {
+        teams['bRate'] += parseFloat(d[ps[i]]['win rate'].slice(0, -1))
+        numRates += 1
+      }
     }
 
-    handleChange(event) {
-        this.setState({player: event.target.value});
-    }
-    handleSubmit(event) {
-        event.preventDefault();
-        var ps = this.state.players, d = {},
-            summs = this.props.data['summoners']['sorted_summoners'],
-            p = this.state.player;
-        for(var i in summs) {
-            if(summs[i].toLowerCase() == this.state.player.toLowerCase()) {
-                p = summs[i]
-            }
-        }
-        ps.indexOf(p) === -1 ? ps.push(p) : console.log('duplicate value');
+    teams['bRate'] = (teams['bRate'] / numRates).toFixed(2)
 
-        d['players'] = ps;
-        d['player'] = '';
-        this.setState(d)
+    numRates = 0;
+    for(var i = half;i < ps.length;i++) {
+      teams['redTeam'].push(ps[i])
+      if(d[ps[i]]) {
+        teams['rRate'] += parseFloat(d[ps[i]]['win rate'].slice(0, -1))
+        numRates += 1
+      }
     }
 
-    deletePlayer(e) {
-        var summ = e.target.value, newState = this.state.players;
-        for(var i in newState) {
-            if(newState[i] == summ) {
-                newState.splice(i, 1);
-            }
-        }
-        this.setState({'players': newState})
+    teams['rRate'] = (teams['rRate'] / numRates)
+      .toFixed(2)
+
+    this.setState(teams);
+  }
+
+  winRateSplit(e) {
+    console.log('Split algorithm');
+    let d = this.props.data, rankedTeam = [], unrankedTeam = [];
+    d = d['summoners'];
+
+    var ps = this.state.players.slice(), teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0};
+    for(var i in d['sorted_summoners']) {
+      if(ps.includes(d['sorted_summoners'][i])) {
+        rankedTeam.push(d[d['sorted_summoners'][i]]);
+        ps.splice(ps.indexOf(d['sorted_summoners'][i]), 1);
+      }
     }
 
-    randomSplit(e) {
-        let d = this.props.data;
-        d = d['summoners'];
-
-        var ps = this.state.players.slice(),
-            teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0};
-        for(var i = 0;i < 1000;i++) {
-            this.shuffle(ps)
-        }
-        var half = Math.ceil(ps.length / 2);
-        var numRates = 0
-
-        for(var i = 0;i < half;i++) {
-            teams['blueTeam'].push(ps[i])
-            if(d[ps[i]]) {
-                teams['bRate'] += parseFloat(d[ps[i]]['win rate'].slice(0, -1))
-                numRates += 1
-            }
-        }
-
-        teams['bRate'] = (teams['bRate'] / numRates).toFixed(2)
-
-        numRates = 0;
-        for(var i = half;i < ps.length;i++) {
-            teams['redTeam'].push(ps[i])
-            if(d[ps[i]]) {
-                teams['rRate'] += parseFloat(d[ps[i]]['win rate'].slice(0, -1))
-                numRates += 1
-            }
-        }
-
-        teams['rRate'] = (teams['rRate'] / numRates)
-            .toFixed(2)
-
-        this.setState(teams);
+    for(var i in ps) {
+      let p = {'won': 0, 'lost': 0, 'win rate': '50%', 'summoner': ps[i]};
+      unrankedTeam.push(p)
     }
 
-    winRateSplit(e) {
-        console.log('Split algorithm');
-        alert('Feature not implemented yet. Thanks for your patience!')
+    var middleIndex = this.findMiddleIndex(rankedTeam)
+
+    rankedTeam.splice(middleIndex, 0, ...unrankedTeam);
+
+    var order = ['blueTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam', 'redTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam'];
+
+    let index = 0, bp = 0, rp = 0;
+    for(var i in order) {
+      if(i < rankedTeam.length) {
+        teams[order[i]].push(rankedTeam[i]['summoner']);
+        if(order[i] == 'blueTeam') {
+          teams['bRate'] += parseFloat(rankedTeam[index]['win rate'].slice(0, -1));
+          bp += 1;
+        } else {
+          teams['rRate'] += parseFloat(rankedTeam[index]['win rate'].slice(0, -1));
+          rp += 1;
+        }
+        index += 1
+      }
     }
 
-    shuffle(array) {
-        for(let i = array.length - 1;i > 0;i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
+    teams['rRate'] = (teams['rRate'] / rp).toFixed(2);
+    teams['bRate'] = (teams['bRate'] / bp).toFixed(2);
+
+    this.setState(teams)
+  }
+
+  findMiddleIndex(array) {
+    let floor = 0, ceiling = 0, t = 0;
+    for(var i in array) {
+      t = parseFloat(array[i]['win rate'].slice(0, -1));
+      if(t > 50) {
+        floor = i;
+      } else if(t == 50) {
+        return i;
+      }
     }
-    render() {
-        let d = this.props.data;
-        if(typeof (d) == 'object') {
-            d = d['summoners'];
+    return floor;
+  }
 
-            var playersCon = [];
-            for(var i in this.state.players) {
-                playersCon.push(<div className='GplayerCont'>{parseInt(i) + 1}.) {
-                    this.state.players[i]
-                }<button onClick={this.deletePlayer} value={this.state.players[i]} className='GdeleteButton'>x</button></div>);
-            }
+  shuffle(array) {
+    for(let i = array.length - 1;i > 0;i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+  render() {
+    let d = this.props.data;
+    if(typeof (d) == 'object') {
+      d = d['summoners'];
 
-            var bt = this.state.blueTeam, rt = this.state.redTeam, btContainer = [],
-                rtContainer = [];
+      var playersCon = [];
+      for(var i in this.state.players) {
+        playersCon.push(<div className='GplayerCont'>{parseInt(i) + 1}.) {
+          this.state.players[i]
+        }<button onClick={this.deletePlayer} value={this.state.players[i]} className='GdeleteButton'>x</button></div>);
+      }
+
+      var bt = this.state.blueTeam, rt = this.state.redTeam, btContainer = [],
+        rtContainer = [];
 
 
-            for(var i in bt) {
-                var tWin = '';
-                if(d[bt[i]]) {
-                    tWin = d[bt[i]]['win rate']
-                }
-                btContainer.push(
-                    <div className='GpickedTeam'> {bt[i]}({tWin}) </div >)
-            }
-
-            for(var k in rt) {
-                var tWin = '';
-                if(d[rt[k]]) {
-                    tWin = d[rt[k]]['win rate']
-                }
-                rtContainer.push(<div className='GpickedTeam'>{rt[k]} ({tWin})</div >)
-            }
+      for(var i in bt) {
+        var tWin = '';
+        if(d[bt[i]]) {
+          tWin = d[bt[i]]['win rate']
         }
+        btContainer.push(
+          <div className='GpickedTeam'> {bt[i]}({tWin}) </div >)
+      }
 
-        return (
-            <div className='dataContainer'>
-                <div className='GformInput'>
-                    <form onSubmit={this.handleSubmit}><label>Add Summoner<br></br>
-                        <input type='summonerName' onChange={this.handleChange} value={this.state.player} /></label><br></br><input type='submit' value='Add' />
-                    </form>
-                    <div className='Gplayers'>{playersCon}</div>
-                    <div className='Gbuttons'> <button onClick={this.randomSplit}>COMPLETELY RANDOM SPLIT</button>
-                        <button onClick={this.winRateSplit}>WIN RATE SPLIT</button>
-                    </div></div>
-                <div className='Gteam Gblue'>
-                    <div className='Gheader'>Blue Team (Average Win rate:
+      for(var k in rt) {
+        var tWin = '';
+        if(d[rt[k]]) {
+          tWin = d[rt[k]]['win rate']
+        }
+        rtContainer.push(<div className='GpickedTeam'>{rt[k]} ({tWin})</div >)
+      }
+    }
+
+    return (
+      <div className='dataContainer'>
+        <div className='GformInput'>
+          <form onSubmit={this.handleSubmit}><label>Add Summoner<br></br>
+            <input type='summonerName' onChange={this.handleChange} value={this.state.player} /></label><br></br><input type='submit' value='Add' />
+          </form>
+          <div className='Gplayers'>{playersCon}</div>
+          <div className='Gbuttons'> <button onClick={this.randomSplit}>COMPLETELY RANDOM SPLIT</button>
+            <button onClick={this.winRateSplit}>WIN RATE SPLIT</button>
+          </div></div>
+        <div className='Gteam Gblue'>
+          <div className='Gheader'>Blue Team (Average Win rate:
             {this.state.bRate}%)</div>{btContainer}</div>
-                <div className='Gteam'>
-                    <div className='Gheader'>Red Team (Average Win rate:
+        <div className='Gteam'>
+          <div className='Gheader'>Red Team (Average Win rate:
              {this.state.rRate}%)
              </div>{rtContainer}</div></div>)
-    }
+  }
 }
 
 export default TeamGenerator;

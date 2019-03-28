@@ -12,12 +12,13 @@ const importAll = require => require.keys().reduce((acc, next) => {
 }, {});
 
 const images =
-    importAll(require.context('./images/champion_squares', false, /\.(png)$/));
+  importAll(require.context('./images/champion_squares', false, /\.(png)$/));
 
 // console.log(images);
 const rolesImages =
-    importAll(require.context('./images/roles', false, /\.(png)$/));
+  importAll(require.context('./images/roles', false, /\.(png)$/));
 
+console.log(images)
 class ChampionsProfiles extends Component {
   constructor(props) {
     super();
@@ -26,24 +27,25 @@ class ChampionsProfiles extends Component {
     // console.log(this.props.data);
     let d = this.props.data;
     let champ_pic,
-        source = d['name'].charAt(0).toUpperCase() +
+      source = d['name'].charAt(0).toUpperCase() +
         d['name'].slice(1).toLowerCase() + '.png';
+    console.log(source)
     let roles_element = [];
-    for (var r in d['role']) {
+    for(var r in d['role']) {
       let r_i = d['role'][r].toLowerCase() + '.png';
-      roles_element.push(<img className = 'CrolesImage' src={rolesImages[r_i]}></img>)
+      roles_element.push(<img className='CrolesImage' src={rolesImages[r_i]}></img>)
     }
 
-    champ_pic = <img className = 'Cchamps' src = {images[source]}><
+    champ_pic = <img className='Cchamps' src={images[source]}><
         /img>
-    return (<div className = 'CProfiles'><div className='Cname'>{d['name']}</div>
-        <div className = 'Cpicture'>{champ_pic}<
+    return (<div className='CProfiles'><div className='Cname'>{d['name']}</div>
+        <div className='Cpicture'>{champ_pic}<
             /div><div className='Croles'>{roles_element}</div>
-        <div className = 'Crates'>Won: {d['won']}&nbsp;
+          <div className='Crates'>Won: {d['won']}&nbsp;
             Lost: {d['lost']}<br></br>
             Win Rate: {d['win rate']}<br></br>Ban Rate: {d['ban rate']}</div><
         /div>)
-  }
-};
-
+        }
+      };
+      
 export default ChampionsProfiles;

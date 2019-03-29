@@ -167,8 +167,6 @@ class TeamGenerator extends Component {
 
   addDropDownSummoner(e) {
     var players = this.state.players;
-    console.log(players);
-    console.log(players.indexOf(e.target.textContent))
     if(players.indexOf(e.target.textContent) == -1) {
       players.push(e.target.textContent);
       this.setState({"players": players})

@@ -198,7 +198,7 @@ class TeamGenerator extends Component {
           tWin = d[bt[i]]['win rate']
         }
         btContainer.push(
-          <div className='GpickedTeam'> {bt[i]} ({tWin}) </div >)
+          <div className='GpickedTeam'> {bt[i]}</div >)
       }
 
       for(var k in rt) {
@@ -206,7 +206,7 @@ class TeamGenerator extends Component {
         if(d[rt[k]]) {
           tWin = d[rt[k]]['win rate']
         }
-        rtContainer.push(<div className='GpickedTeam'>{rt[k]} ({tWin})</div >)
+        rtContainer.push(<div className='GpickedTeam'>{rt[k]}</div >)
       }
 
       var summsDropdown = [];

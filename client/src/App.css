@@ -421,6 +421,7 @@ font-size: 28px;
   border: 1px solid black;
   padding: 20px 20px 20px 20px;
   float:left;
+  cursor: pointer;
 }
 
 .Gform{

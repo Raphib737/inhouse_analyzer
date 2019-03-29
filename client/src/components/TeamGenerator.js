@@ -19,6 +19,7 @@ class TeamGenerator extends Component {
     this.deletePlayer = this.deletePlayer.bind(this);
     this.randomSplit = this.randomSplit.bind(this);
     this.winRateSplit = this.winRateSplit.bind(this);
+    this.addDropDownSummoner = this.addDropDownSummoner.bind(this);
   }
 
   handleChange(event) {
@@ -90,6 +91,7 @@ class TeamGenerator extends Component {
 
   winRateSplit(e) {
     console.log('Split algorithm');
+    var algorithm = e.target.value;
     let d = this.props.data, rankedTeam = [], unrankedTeam = [];
     d = d['summoners'];
 
@@ -110,7 +112,17 @@ class TeamGenerator extends Component {
 
     rankedTeam.splice(middleIndex, 0, ...unrankedTeam);
 
-    var order = ['blueTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam', 'redTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam'];
+    var order = [];
+    switch(algorithm) {
+      case 'ababbababa':
+        order = ['blueTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam', 'redTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam'];
+        break;
+      case 'aabbbabbaa':
+        order = ['blueTeam', 'blueTeam', 'redTeam', 'redTeam', 'redTeam', 'blueTeam', 'redTeam', 'redTeam', 'blueTeam', 'blueTeam'];
+        break;
+      case 'abbbabaaab':
+        order = ['blueTeam', 'redTeam', 'redTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam', 'blueTeam', 'blueTeam', 'redTeam']
+    }
 
     let index = 0, bp = 0, rp = 0;
     for(var i in order) {
@@ -152,6 +164,18 @@ class TeamGenerator extends Component {
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
+
+  addDropDownSummoner(e) {
+    var players = this.state.players;
+    console.log(players);
+    console.log(players.indexOf(e.target.textContent))
+    if(players.indexOf(e.target.textContent) == -1) {
+      players.push(e.target.textContent);
+      this.setState({"players": players})
+    } else {
+      console.log("duplicate summoner");
+    }
+  }
   render() {
     let d = this.props.data;
     if(typeof (d) == 'object') {
@@ -174,7 +198,7 @@ class TeamGenerator extends Component {
           tWin = d[bt[i]]['win rate']
         }
         btContainer.push(
-          <div className='GpickedTeam'> {bt[i]}({tWin}) </div >)
+          <div className='GpickedTeam'> {bt[i]} ({tWin}) </div >)
       }
 
       for(var k in rt) {
@@ -184,17 +208,34 @@ class TeamGenerator extends Component {
         }
         rtContainer.push(<div className='GpickedTeam'>{rt[k]} ({tWin})</div >)
       }
+
+      var summsDropdown = [];
+      for(var s in d['sorted_summoners']) {
+        summsDropdown.push(<div className="Gdropdown" onClick={this.addDropDownSummoner}>{d['sorted_summoners'][s]}</div>)
+      }
     }
 
     return (
       <div className='dataContainer'>
         <div className='GformInput'>
-          <form onSubmit={this.handleSubmit}><label>Add Summoner<br></br>
+          <div className='Gplayers'><div className="Gsumheader">Summoners</div><br></br>{playersCon}</div>
+          <div className="GdropdownContainer">
+            <div className="dropdown"><span className='Gsdropdown'> Summoners Dropdown</span>
+              <div className="dropdown-content">
+                {summsDropdown}
+              </div>
+            </div>
+          </div>
+
+
+
+          <form className="Gform" onSubmit={this.handleSubmit}><label>Add New Summoner<br></br>
             <input type='summonerName' onChange={this.handleChange} value={this.state.player} /></label><br></br><input type='submit' value='Add' />
           </form>
-          <div className='Gplayers'>{playersCon}</div>
           <div className='Gbuttons'> <button onClick={this.randomSplit}>COMPLETELY RANDOM SPLIT</button>
-            <button onClick={this.winRateSplit}>WIN RATE SPLIT</button>
+            <button onClick={this.winRateSplit} value='ababbababa'>WIN RATE SPLIT (ababbababa)</button>
+            <button onClick={this.winRateSplit} value='aabbbabbaa'>WIN RATE SPLIT (aabbbabbaa)</button>
+            <button onClick={this.winRateSplit} value='abbbabaaab'>WIN RATE SPLIT (abbbabaaab)</button>
           </div></div>
         <div className='Gteam Gblue'>
           <div className='Gheader'>Blue Team (Average Win rate:

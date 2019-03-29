@@ -20,6 +20,7 @@ class TeamGenerator extends Component {
     this.randomSplit = this.randomSplit.bind(this);
     this.winRateSplit = this.winRateSplit.bind(this);
     this.addDropDownSummoner = this.addDropDownSummoner.bind(this);
+    this.terrysSplit = this.terrysSplit.bind(this);
   }
 
   handleChange(event) {
@@ -89,13 +90,15 @@ class TeamGenerator extends Component {
     this.setState(teams);
   }
 
-  winRateSplit(e) {
-    console.log('Split algorithm');
-    var algorithm = e.target.value;
+  terrysSplit() {
+    console.log("Terry's split algorithm")
+  }
+
+  getTeams() {
     let d = this.props.data, rankedTeam = [], unrankedTeam = [];
     d = d['summoners'];
 
-    var ps = this.state.players.slice(), teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0};
+    var ps = this.state.players.slice();
     for(var i in d['sorted_summoners']) {
       if(ps.includes(d['sorted_summoners'][i])) {
         rankedTeam.push(d[d['sorted_summoners'][i]]);
@@ -111,6 +114,17 @@ class TeamGenerator extends Component {
     var middleIndex = this.findMiddleIndex(rankedTeam)
 
     rankedTeam.splice(middleIndex, 0, ...unrankedTeam);
+    return rankedTeam
+  }
+
+  winRateSplit(e) {
+    console.log('Split algorithm');
+    var algorithm = e.target.value;
+    let d = this.props.data, rankedTeam = [], unrankedTeam = [],
+      teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0}
+    d = d['summoners'];
+
+    rankedTeam = this.getTeams();
 
     var order = [];
     switch(algorithm) {
@@ -122,6 +136,8 @@ class TeamGenerator extends Component {
         break;
       case 'abbbabaaab':
         order = ['blueTeam', 'redTeam', 'redTeam', 'redTeam', 'blueTeam', 'redTeam', 'blueTeam', 'blueTeam', 'blueTeam', 'redTeam']
+      case 'terry':
+
     }
 
     let index = 0, bp = 0, rp = 0;
@@ -235,6 +251,7 @@ class TeamGenerator extends Component {
             <button onClick={this.winRateSplit} value='aabbbabbaa'>WIN RATE SPLIT (aabbbabbaa)</button><br></br>
             <button onClick={this.winRateSplit} value='abbbabaaab'>WIN RATE SPLIT (abbbabaaab)</button> <br></br>
             <button onClick={this.randomSplit}>COMPLETELY RANDOM SPLIT</button><br></br>
+            <button onClick={this.terrysSplit}>Terrence's split</button>
           </div></div>
         <div className='Gteam Gblue'>
           <div className='Gheader'>Blue Team (Average Win rate:

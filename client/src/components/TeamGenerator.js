@@ -92,33 +92,71 @@ class TeamGenerator extends Component {
 
   terrysSplit() {
     console.log("Terry's split algorithm")
-
+    var teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0};
     var rankedTeams = this.getPlayers();
     var candidates = []
 
     for(var s in rankedTeams) {
       candidates.push(parseFloat(rankedTeams[s]['win rate'].slice(0, -1)));
     }
-    console.log(candidates)
+
     var totalWinrate = 0
+    var players = []
 
     for(var i = 0;i < candidates.length;i++) {
       totalWinrate += candidates[i];
+      players.push({index: i, winrate: candidates[i]})
     }
 
     var avgWinrate = totalWinrate / 2;
     var tolerance = 10;
-    console.log(avgWinrate)
-    console.log(this.getTeams(candidates, avgWinrate, tolerance));
+
+    var results = this.getTeams(players, avgWinrate, tolerance);
+    var redTeam = results[(Math.floor(results.length / 3) - 1)];
+
+    var invalidIndex = [];
+    var rp = 0, bp = 0;
+
+    for(var i in redTeam) {
+      teams['redTeam'].push(rankedTeams[redTeam[i]['index']]['summoner']);
+      teams['rRate'] += parseFloat(rankedTeams[redTeam[i]['index']]['win rate'].slice(0, -1));
+      invalidIndex.push(redTeam[i]['index']);
+      rp += 1;
+    }
+
+    for(var i in rankedTeams) {
+      if(!invalidIndex.includes(parseInt(i))) {
+        teams['blueTeam'].push(rankedTeams[i]['summoner']);
+        teams['bRate'] += parseFloat(rankedTeams[i]['win rate'].slice(0, -1));
+        bp += 1;
+      }
+    }
+
+    teams['rRate'] = (teams['rRate'] / rp).toFixed(2);
+    teams['bRate'] = (teams['bRate'] / bp).toFixed(2);
+
+    this.setState(teams)
   }
 
   getTeams(players, avgWinrate, tolerance) {
-    console.log("starting...");
     var possibleTeams = this.getCombinations(players, avgWinrate, tolerance);
 
-
     for(var i = 0;i < possibleTeams.length;i++) {
-      possibleTeams[i].sort();
+      possibleTeams[i].sort(
+        function(combo1, combo2) {
+          if(combo1.winrate < combo2.winrate) {
+            return false;
+          } else if(combo1.winrate > combo2.winrate) {
+            return true;
+          }
+
+          if(combo1.index < combo2.index) {
+            return false;
+          } else if(combo1.index > combo2.index) {
+            return true;
+          }
+        }
+      );
     }
 
     var teamSet = new Set(possibleTeams.map(JSON.stringify));
@@ -138,23 +176,24 @@ class TeamGenerator extends Component {
       usePlayer.push(currPlayer);
 
 
-      if(Math.abs(avgWinrate - currPlayer) <= tolerance) {
+      if(Math.abs(avgWinrate - currPlayer.winrate) <= tolerance) {
         possibilities.push(usePlayer);
         continue;
       }
 
-      if(avgWinrate - currPlayer < -tolerance) {
+      if(avgWinrate - currPlayer.winrate < -tolerance) {
         continue;
       }
 
       playersCopy.splice(i, 1);
-      var nextWinrateCombos = this.getCombinations(playersCopy, avgWinrate - currPlayer, tolerance);
+      var nextWinrateCombos = this.getCombinations(playersCopy, avgWinrate - currPlayer.winrate, tolerance);
 
       for(var j = 0;j < nextWinrateCombos.length;j++) {
         nextWinrateCombos[j].push(currPlayer);
         possibilities.push(nextWinrateCombos[j]);
       }
     }
+
     return possibilities;
   }
 

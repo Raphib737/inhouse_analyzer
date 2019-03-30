@@ -92,9 +92,75 @@ class TeamGenerator extends Component {
 
   terrysSplit() {
     console.log("Terry's split algorithm")
+
+    var rankedTeams = this.getPlayers();
+    var candidates = []
+
+    for(var s in rankedTeams) {
+      candidates.push(parseFloat(rankedTeams[s]['win rate'].slice(0, -1)));
+    }
+    console.log(candidates)
+    var totalWinrate = 0
+
+    for(var i = 0;i < candidates.length;i++) {
+      totalWinrate += candidates[i];
+    }
+
+    var avgWinrate = totalWinrate / 2;
+    var tolerance = 10;
+    console.log(avgWinrate)
+    console.log(this.getTeams(candidates, avgWinrate, tolerance));
   }
 
-  getTeams() {
+  getTeams(players, avgWinrate, tolerance) {
+    console.log("starting...");
+    var possibleTeams = this.getCombinations(players, avgWinrate, tolerance);
+
+
+    for(var i = 0;i < possibleTeams.length;i++) {
+      possibleTeams[i].sort();
+    }
+
+    var teamSet = new Set(possibleTeams.map(JSON.stringify));
+    return Array.from(teamSet).map(JSON.parse);
+  }
+
+  getCombinations(players, avgWinrate, tolerance) {
+    var possibilities = [];
+
+    if(avgWinrate < 0) {
+      return possibilities;
+    }
+    var playersCopy = players.slice();
+    for(var i = playersCopy.length - 1;i >= 0;i--) {
+      var usePlayer = []
+      var currPlayer = playersCopy[i];
+      usePlayer.push(currPlayer);
+
+
+      if(Math.abs(avgWinrate - currPlayer) <= tolerance) {
+        possibilities.push(usePlayer);
+        continue;
+      }
+
+      if(avgWinrate - currPlayer < -tolerance) {
+        continue;
+      }
+
+      playersCopy.splice(i, 1);
+      var nextWinrateCombos = this.getCombinations(playersCopy, avgWinrate - currPlayer, tolerance);
+
+      for(var j = 0;j < nextWinrateCombos.length;j++) {
+        nextWinrateCombos[j].push(currPlayer);
+        possibilities.push(nextWinrateCombos[j]);
+      }
+    }
+    return possibilities;
+  }
+
+
+
+  getPlayers() {
     let d = this.props.data, rankedTeam = [], unrankedTeam = [];
     d = d['summoners'];
 
@@ -124,7 +190,7 @@ class TeamGenerator extends Component {
       teams = {'blueTeam': [], 'redTeam': [], rRate: 0, bRate: 0}
     d = d['summoners'];
 
-    rankedTeam = this.getTeams();
+    rankedTeam = this.getPlayers();
 
     var order = [];
     switch(algorithm) {

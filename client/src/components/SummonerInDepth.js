@@ -3,6 +3,7 @@ import '../App.css';
 import React, {Component} from 'react';
 
 import CanvasJSReact from './canvasjs.react';
+
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -39,14 +40,16 @@ class SummonerInDepth extends Component {
       }]
     };
 
+    var c_h = [<span>test<br></br></span>];
+    var champHistory = <div className='tooltiptext'>History<br></br>{c_h}</div>;
     var roleElements = [];
     for(var i in d['role']) {
       var champPics = [];
       for(var c in d['role'][i]['champions']) {
         let imgName = c[0].toUpperCase() + c.slice(1).toLowerCase() + '.png';
         champPics.push(
-          <img className='SchampImage' src={images[imgName]}>
-          </img>)
+          <div className="SciContainer"><img className='SchampImage' src={images[imgName]}>
+          </img>{champHistory}</div>)
       }
       roleElements.push(
         <div className='SroleContainer'><div className='SroleName'><img className="SroleImage" src={rolesImages[i.toLowerCase() + ".png"]}

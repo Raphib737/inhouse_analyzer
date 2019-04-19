@@ -212,9 +212,6 @@ a:hover{
     float:left;
     padding-top: 5%;
 }
-.SratingGraph{
-    
-}
 
 .Sroles{
     width: 80%;
@@ -429,4 +426,26 @@ font-size: 28px;
   width: 45%;
   border: 1px solid black;
   padding-bottom: 10px;
+}
+
+.SciContainer{
+  display: block;
+  float: left;
+}
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.SciContainer:hover .tooltiptext {
+  visibility: visible;
 }

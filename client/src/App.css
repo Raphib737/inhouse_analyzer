@@ -434,16 +434,24 @@ font-size: 28px;
 }
 .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: 400px;
   background-color: black;
   color: #fff;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
+  padding-left: 1%;
+  font-size: 14px;
 
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
+  margin-left: -250px;
+}
+
+.tooltipHeader{
+    width:100%;
+    text-align: center
 }
 
 .SciContainer:hover .tooltiptext {

@@ -51,11 +51,12 @@ class SummonerInDepth extends Component {
                     var mD = d['role'][i]['champions'][c]['match history'][m],
                         o = mD[0],
                         e = mD[1];
-                    console.log(o)
-                    console.log(e)
                     c_h.push(<span>{o['result'].toUpperCase()} ({o['score']}) vs {e['summoner']}'s {e['champion']} ({e['score']})<br></br></span>)
                 }
-                var champHistory = <div className='tooltiptext'><div className='tooltipHeader'>{c[0].toUpperCase() + c.slice(1).toLowerCase()}  Match History</div>{c_h}</div>;
+
+                var cS = d['role'][i]['champions'][c];
+                console.log(d['role'][i]['champions'][c])
+                var champHistory = <div className='tooltiptext'><div className='tooltipHeader'>{c[0].toUpperCase() + c.slice(1).toLowerCase()} ({cS['won']}-{cS['lost']}) <br></br>Average Stats:({cS['average kills'].toFixed(2)}/{cS['average deaths'].toFixed(2)}/{cS['average assists'].toFixed(2)})</div>{c_h}</div>;
                 champPics.push(
                     <div className="SciContainer"><img className='SchampImage' src={images[imgName]}>
                     </img>{champHistory}</div>)

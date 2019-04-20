@@ -201,7 +201,7 @@ a:hover{
     font-size: 28px;
     font-weight: bold;
     background: black;
-    color: white;
+     color: white;
     padding-top: 1%;
     padding-bottom: 1%;
 }
@@ -214,11 +214,12 @@ a:hover{
 }
 
 .Sroles{
-    width: 80%;
+    width: 40%;
     display:inline-block;
     height: 100%;
     background: white;
-    padding-bottom: 5px
+    padding-bottom: 5px;
+    float: left;
 
 }
 
@@ -232,13 +233,16 @@ a:hover{
 }
 
 .SroleImage{
-    width: 50%;
+    width: 40%;
 }
+
 .SroleContainer{
-    width:18%;
+    width:49%;
     display:inline-block;
     text-align:center;
+    padding-left: 1%;
 }
+
 
 .Svision{
     width: 100%;
@@ -252,8 +256,6 @@ a:hover{
     float: left;
     width: 100%;
     margin-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -266,7 +268,7 @@ a:hover{
 }
 
 .Spartners{
-    width:80%;
+    width:60%;
     height: 100%;
     display: inline-block;
 }
@@ -442,11 +444,12 @@ font-size: 28px;
   padding: 5px 0;
   padding-left: 1%;
   font-size: 14px;
+  margin-left: 4%;
+  margin-top: -4%;
 
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  margin-left: -250px;
 }
 
 .tooltipHeader{

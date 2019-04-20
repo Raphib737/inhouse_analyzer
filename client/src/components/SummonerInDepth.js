@@ -104,7 +104,7 @@ class SummonerInDepth extends Component {
             dataPoints: []
         };
 
-        for(var p in d['sorted_partners'].reverse()) {
+        for(var p in d['sorted_partners']) {
             var partner = d['sorted_partners'][p][0];
             let dP = d['partners'][partner];
 

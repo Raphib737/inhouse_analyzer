@@ -68,7 +68,8 @@ class SummonerInDepth extends Component {
             animationEnabled: false,
             theme: "light2",
             title:{
-                text: "Sorted by Win Rate %"
+                text: "Sorted by Win Rate %",
+                fontSize: 16
             },
             toolTip: {
                 shared: true,

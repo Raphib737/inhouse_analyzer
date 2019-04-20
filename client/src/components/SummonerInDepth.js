@@ -66,7 +66,6 @@ class SummonerInDepth extends Component {
         var graphOptions = 
         {
             animationEnabled: false,
-            height:800,
             theme: "light2",
             title:{
                 text: ""

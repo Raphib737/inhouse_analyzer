@@ -55,7 +55,6 @@ class SummonerInDepth extends Component {
                 }
 
                 var cS = d['role'][i]['champions'][c];
-                console.log(d['role'][i]['champions'][c])
                 var champHistory = <div className='tooltiptext'><div className='tooltipHeader'>{c[0].toUpperCase() + c.slice(1).toLowerCase()} ({cS['won']}-{cS['lost']}) <br></br>Average Stats:({cS['average kills'].toFixed(2)}/{cS['average deaths'].toFixed(2)}/{cS['average assists'].toFixed(2)})</div>{c_h}</div>;
                 champPics.push(
                     <div className="SciContainer"><img className='SchampImage' src={images[imgName]}>
@@ -102,13 +101,11 @@ class SummonerInDepth extends Component {
                 } />
             </div>)
         }
-
+        console.log(d)
         return (
             <div className='SsummonerProfile'>
-                <div className='SsummonerName'>{d['summoner']}</div>
-                <div className='SratingGraphContainer'>
-                    <CanvasJSChart className='SratingGraph' options={wrOptions} />
-                </div><div className='Sroles'><div className="SrolesHeader">Roles</div>{roleElements}</div>
+                <div className='SsummonerName'>Rank {d['rank']}<br></br>{d['summoner']} ({d['won']}-{d['lost']})<br></br>Win Rate:{d['win rate']}</div>
+                <div className='Sroles'><div className="SrolesHeader">Roles</div>{roleElements}</div>
                 <div className='Spartners'><div className='SpartnersHeader'> Partners Win Rate
         </div>{partnersList}</div>
             </div>);

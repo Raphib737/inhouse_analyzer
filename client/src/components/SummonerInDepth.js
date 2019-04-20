@@ -21,24 +21,10 @@ const rolesImages =
 class SummonerInDepth extends Component {
     constructor(props) {
         super();
-    }
+	}
+    
     render() {
         let d = this.props.data;
-
-        const wrOptions = {
-            animationEnabled: true,
-            title: {'text': 'Win Rate: ' + d['win rate']},
-            height: 500,
-            data: [{
-                type: 'pie',
-                showInLegend: false,
-                startAngle: 270,
-                dataPoints: [
-                    {label: 'Lost', y: d['lost'], color: 'red'},
-                    {label: 'Won', y: d['won'], color: '#003366'}
-                ]
-            }]
-        };
 
         var roleElements = [];
         for(var i in d['role']) {
@@ -76,40 +62,71 @@ class SummonerInDepth extends Component {
         }
 
         let partnersList = [];
+
+        var graphOptions = 
+        {
+            animationEnabled: false,
+            height:800,
+            theme: "light2",
+            title:{
+                text: ""
+            },
+            toolTip: {
+                shared: true
+            },
+            axisX:{
+                title: "Partners",
+                labelFontSize: 14,
+                labelFontWeight: "bold",
+                interval: 1
+                
+            },
+            axisY:{
+                title: "Games",
+                interval: 1,
+                labelFontSize: 10
+            },
+            data:[]
+        },
+        wonData = {
+            type: "stackedBar",
+            name: "Won",
+            xValueFormatString: "",
+            yValueFormatString: "#",
+            dataPoints: []
+            	},
+        lostData = {
+            type: "stackedBar",
+            name: "Lost",
+
+            xValueFormatString: "",
+            yValueFormatString: "#",
+            dataPoints: []
+        };
+
         for(var p in d['partners']) {
             let dP = d['partners'][p];
-            let Poptions = {
-                animationEnabled: true,
-                title: {'text': dP['win rate'] + ' w/ ' + p},
-                height: 160,
-                data: [{
-                    type: 'pie',
-                    showInLegend: false,
-                    startAngle: 270,
-                    indexLabel: '',
-                    indexLabelFontSize: 1,
-                    indexLabelLineThickness: 0,
-                    dataPoints: [
-                        {label: 'Lost', y: dP['lost'], color: 'red'},
-                        {label: 'Won', y: dP['won'], color: '#003366'}
-                    ]
-                }]
-            };
-            partnersList.push(<div className='SpartnerGraph'>
-                <CanvasJSChart options={
-                    Poptions
-                } />
-            </div>)
+            if(dP['won'] > 0){
+                wonData['dataPoints'].push({label:p,y:dP['won'],color:"blue"});
+            }
+            if(dP['lost'] > 0){
+                lostData['dataPoints'].push({label:p,y:dP['lost'],color:"red"});
+            }  
         }
-        console.log(d)
+
+        graphOptions['data'].push(wonData);
+        graphOptions['data'].push(lostData);
+        console.log(graphOptions)
+        partnersList.push(<div className='SpartnerGraph'><CanvasJSChart options={graphOptions} onRef={ref => this.chart = ref}/></div>)
+
         return (
             <div className='SsummonerProfile'>
                 <div className='SsummonerName'>Rank {d['rank']}<br></br>{d['summoner']} ({d['won']}-{d['lost']})<br></br>Win Rate:{d['win rate']}</div>
-                <div className='Sroles'><div className="SrolesHeader">Roles</div>{roleElements}</div>
+                    <div className='Sroles'><div className="SrolesHeader">Roles</div>{roleElements}</div>
                 <div className='Spartners'><div className='SpartnersHeader'> Partners Win Rate
-        </div>{partnersList}</div>
-            </div>);
-    }
+                </div>{partnersList}</div>                
+            </div>);    
+} 
 }
-
+     
 export default SummonerInDepth;

@@ -25,7 +25,7 @@ class SummonerInDepth extends Component {
     
     render() {
         let d = this.props.data;
-
+        console.log(d)
         var roleElements = [];
         for(var i in d['role']) {
             var champPics = [];
@@ -68,10 +68,10 @@ class SummonerInDepth extends Component {
             animationEnabled: false,
             theme: "light2",
             title:{
-                text: ""
+                text: "Sorted by Win Rate %"
             },
             toolTip: {
-                shared: true
+                shared: true,
             },
             axisX:{
                 title: "Partners",
@@ -83,7 +83,8 @@ class SummonerInDepth extends Component {
             axisY:{
                 title: "Games",
                 interval: 1,
-                labelFontSize: 10
+                labelFontSize: 10,
+                includeZero: true
             },
             data:[]
         },
@@ -103,14 +104,15 @@ class SummonerInDepth extends Component {
             dataPoints: []
         };
 
-        for(var p in d['partners']) {
-            let dP = d['partners'][p];
-            if(dP['won'] > 0){
-                wonData['dataPoints'].push({label:p,y:dP['won'],color:"blue"});
-            }
-            if(dP['lost'] > 0){
-                lostData['dataPoints'].push({label:p,y:dP['lost'],color:"red"});
-            }  
+        for(var p in d['sorted_partners'].reverse()) {
+            var partner = d['sorted_partners'][p][0];
+            let dP = d['partners'][partner];
+
+            wonData['dataPoints'].push({label:partner,y:dP['won'],color:"blue"}); 
+            
+            // indexLabel:dP['win rate'],indexLabelPlacement:"outside",indexLabelFontSize:10,indexLabelFontColor: "black",indexLabelFontWeight:10
+
+            lostData['dataPoints'].push({label:partner,y:dP['lost'],color:"red"});
         }
 
         graphOptions['data'].push(wonData);

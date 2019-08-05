@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
+var overviewSeason3Data = require('./overview_data/season_3.json')
 var overviewSeason2Data = require('./overview_data/season_2.json');
 var overviewSeason1Data = require('./overview_data/season_1.json');
 var overviewOverallData = require('./overview_data/overall.json')
@@ -25,6 +26,10 @@ else {app.get(
     '/',
     (req,
      res) => {res.sendfile(path.join(__dirname = 'client/public/index.html'))})}
+
+app.get('/api/season/3', (req, res) => {
+    res.send(overviewSeason3Data);
+});
 
 app.get('/api/season/2', (req, res) => {
   res.send(overviewSeason2Data);

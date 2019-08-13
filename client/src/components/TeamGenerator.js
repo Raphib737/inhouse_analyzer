@@ -112,11 +112,32 @@ class TeamGenerator extends Component {
     var tolerance = 10;
 
     var results = this.getTeams(players, avgWinrate, tolerance);
+    
+    var normal = 0;
+    var irregular = 0;
+
+    for(var j in results){
+        var len = results[j].length
+
+        if(len == 5){
+            normal += 1;
+        } else{
+            irregular += 1;
+        }
+    }
+    console.log("Normal: " + normal);
+    console.log("Irregular: " + irregular);
+
     var redTeam = results[(Math.floor(results.length / 3) - 1)];
+
+    var counter = 0;
+    while(redTeam.length != 5){
+        redTeam = results[counter];
+        counter += 1;
+    }
 
     var invalidIndex = [];
     var rp = 0, bp = 0;
-
     for(var i in redTeam) {
       teams['redTeam'].push(rankedTeams[redTeam[i]['index']]['summoner']);
       teams['rRate'] += parseFloat(rankedTeams[redTeam[i]['index']]['win rate'].slice(0, -1));

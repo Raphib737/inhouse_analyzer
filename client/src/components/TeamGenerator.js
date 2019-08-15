@@ -380,11 +380,9 @@ class TeamGenerator extends Component {
             <button onClick={this.terrysSplit}>Terrence's split</button>
           </div></div>
         <div className='Gteam Gblue'>
-          <div className='Gheader'>Blue Team (Average Win Rate: 
-            {this.state.bRate}%)</div>{btContainer}</div>
+          <div className='Gheader'>Blue Team (Average Win Rate:&nbsp;{this.state.bRate}%)</div>{btContainer}</div>
         <div className='Gteam'>
-          <div className='Gheader'>Red Team (Average Win Rate: 
-             {this.state.rRate}%)
+          <div className='Gheader'>Red Team (Average Win Rate:&nbsp;{this.state.rRate}%)
              </div>{rtContainer}</div></div>)
   }
 }

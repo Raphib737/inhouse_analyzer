@@ -373,10 +373,10 @@ class TeamGenerator extends Component {
             <input type='summonerName' onChange={this.handleChange} value={this.state.player} /></label><br></br><input type='submit' value='Add' />
           </form>
           <div className='Gbuttons'>
-            {/* <button onClick={this.winRateSplit} value='ababbababa'>WIN RATE SPLIT (ababbababa)</button><br></br>
+            <button onClick={this.winRateSplit} value='ababbababa'>WIN RATE SPLIT (ababbababa)</button><br></br>
             <button onClick={this.winRateSplit} value='aabbbabbaa'>WIN RATE SPLIT (aabbbabbaa)</button><br></br>
             <button onClick={this.winRateSplit} value='abbbabaaab'>WIN RATE SPLIT (abbbabaaab)</button> <br></br>
-            <button onClick={this.randomSplit}>COMPLETELY RANDOM SPLIT</button><br></br> */}
+            <button onClick={this.randomSplit}>COMPLETELY RANDOM SPLIT</button><br></br>
             <button onClick={this.terrysSplit}>Terrence's split</button>
           </div></div>
         <div className='Gteam Gblue'>

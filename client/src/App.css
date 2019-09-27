@@ -595,6 +595,7 @@ font-size: 28px;
     height:25%;
     float:left;
     font-weight:bold;
+    border-bottom:1px solid black
 }
 
 .matchupExtraStats{

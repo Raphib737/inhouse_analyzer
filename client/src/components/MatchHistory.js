@@ -65,7 +65,9 @@ class MatchHistory extends Component {
                             <div className="matchupStats">{sOne['summoner']}  ({sOne['kills']}/{sOne['deaths']}/{sOne['assists']})</div>
                             <div className="matchupChampionLeft">
                                 <img className="matchupChampionImg" src={images[sOne['champ'][0].toUpperCase() + sOne['champ'].slice(1).toLowerCase() + ".png"]}></img></div>
-                                <div className="matchupExtraStats">Cs: {sOne['cs']}<br></br> Vision: {sOne['vision']} <br></br> Pinks: {sOne['vision_wards_bought']}</div>
+                                <div className="matchupExtraStats">Cs: {sOne['cs']}<br></br> Vision: {sOne['vision']} <br></br> Pinks: {sOne['vision_wards_bought']}<br></br>
+                            Gold: {sOne['gold_earned']}<br></br>
+                            Damage: {sOne['total_champ_damage']}</div>
                         </div>
 
                         <div className="matchupMiddle"><img className="matchupRoleImage" src={rolesImages[r.toLowerCase() + ".png"]}></img></div>
@@ -76,22 +78,14 @@ class MatchHistory extends Component {
                             
                         <div className="matchupStats">{sTwo['summoner']}  ({sTwo['kills']}/{sTwo['deaths']}/{sTwo['assists']})</div>
 
-                        <div className="matchupExtraStats">Cs: {sTwo['cs']}<br></br> Vision: {sTwo['vision']} <br></br> Pinks: {sTwo['vision_wards_bought']}</div>
+                        <div className="matchupExtraStats">Cs: {sTwo['cs']}<br></br> Vision: {sTwo['vision']} <br></br> Pinks: {sTwo['vision_wards_bought']}<br></br>
+                            Gold: {sTwo['gold_earned']}<br></br>
+                            Damage: {sTwo['total_champ_damage']}
+                        </div>
                         </div>
                         </div>
                     matchups.push(n)
                 }
-
-
-
-
-
-
-
-
-
-
-
 
                 let mc = <div className="matchContainer"><div className="matchHeader">Match #{matches.length-i} | {matches[i]['date']}</div>{matchResultsSection}{banSection}{matchups}</div>
                 

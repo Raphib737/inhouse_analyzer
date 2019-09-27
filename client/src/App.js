@@ -6,6 +6,7 @@ import Champions from './components/Champions';
 import Overview from './components/Overview';
 import Summoners from './components/Summoners';
 import TeamGenerator from './components/TeamGenerator';
+import MatchHistory from './components/MatchHistory';
 
 class App extends Component {
     state = {
@@ -57,7 +58,7 @@ class App extends Component {
     activateState(e) {
         let activeState = e.target.text.toLowerCase();
         let newState = {activeTab: activeState};
-        let states = ['summoners', 'champions', 'overview', 'generator'];
+        let states = ['summoners', 'champions', 'overview', 'history','generator'];
         for(var i in states) {
             if(activeState === states[i]) {
                 newState[states[i]] = true;
@@ -101,6 +102,7 @@ class App extends Component {
         let oClass = this.state.overview ? 'active' : '';
         let sClass = this.state.summoners ? 'active' : '';
         let cClass = this.state.champions ? 'active' : '';
+        let hClass = this.state.history ? 'active': '' ;
         let gClass = this.state.generator ? 'active' : '';
 
         let elementToLoad = [];
@@ -117,6 +119,8 @@ class App extends Component {
             } />);
         } else if(this.state.activeTab === 'generator' && this.state.activeSeason !== '') {
             elementToLoad.push(<TeamGenerator data={this.state.response} />);
+        } else if(this.state.activeTab === 'history' && this.state.activeSeason !== '') {
+            elementToLoad.push(<MatchHistory data={this.state.response} />);
         }
         return (
             <div className='main'>
@@ -148,6 +152,10 @@ class App extends Component {
                         <a className={cClass} href='#' onClick={this.activateState.bind(
                             this)}>Champions</a>
                     </li><li>
+                        <a className={hClass} href='#' onClick={this.activateState.bind(
+                            this)}>History</a>
+                    </li>
+                    <li>
                         <a className={gClass} href='#' onClick={this.activateState.bind(
                             this)}>Generator</a>
                     </li>

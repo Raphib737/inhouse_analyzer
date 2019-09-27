@@ -567,16 +567,19 @@ font-size: 28px;
 }
 
 .matchupRoleImage{
+    margin-top:20%;
     height: 90%;
 }
 
 .matchupChampionLeft{
+    margin-top: 5%;
     height:90%;
     width:25%;
     float:right
 }
 
 .matchupChampionRight{
+    margin-top: 5%;
     height:90%;
     width:25%;
     float:left

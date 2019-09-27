@@ -561,7 +561,7 @@ font-size: 28px;
 
 .matchupMiddle{
     width: 10%;
-    height: 100%;
+    height: 95%;
     padding-top: 3px;
     float:left;
 }
@@ -571,7 +571,7 @@ font-size: 28px;
 }
 
 .matchupChampionLeft{
-    height:100%;
+    height:90%;
     width:25%;
     float:right
 }
@@ -584,8 +584,8 @@ font-size: 28px;
 
 .matchupChampionImg{
     margin-top:10%;
-    height: 90%;
-    width:90%;
+    height: 80%;
+    width:80%;
 }
 
 .matchupStats{

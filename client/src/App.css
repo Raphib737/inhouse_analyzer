@@ -484,20 +484,20 @@ font-size: 28px;
 
 .blueResultsSection{
     width: 40%;
-    height: 100%;
     color: blue;
     margin-left: 5%;
     margin-right: 10%;
     padding-top:1%;
-    float: left
+    float: left;
+    border-bottom: 1px solid black
 }
 .redResultsSection{
     width: 40%;
-    height: 100%;
     padding-top: 1%;
     margin-left: 2%;
     color: red;
-    float:left
+    float:left;
+    border-bottom: 1px solid black
 }
 .bans{
    width: 95%;
@@ -519,9 +519,9 @@ font-size: 28px;
 }
 
 .bansChampImages{
-    width: 15%;
+    width: 50px;
     margin-right: 1%;
-    height: 100%
+    height: 50px
 }
 
 .redBans{
@@ -553,7 +553,8 @@ font-size: 28px;
 .matchup{
     width: 40%;
     height: 100%;
-    float:left
+    float:left;
+    margin-left:1%
 }
 .matchup:first-child{
     margin-left:5%
@@ -587,18 +588,19 @@ font-size: 28px;
 
 .matchupChampionImg{
     margin-top:10%;
-    height: 80%;
-    width:80%;
+    height: 75px;
+    width:75px;
 }
 
 .matchupStats{
-    font-size: 20px;
+    font-size: 18px;
     padding-top: 1%;
-    width:75%;
-    height:25%;
-    float:left;
-    font-weight:bold;
-    border-bottom:1px solid black
+    width: 75%;
+    height: 15%;
+    float: left;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    padding-bottom: 1%;
 }
 
 .matchupExtraStats{

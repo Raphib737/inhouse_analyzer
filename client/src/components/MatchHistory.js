@@ -9,6 +9,8 @@ const importAll = require => require.keys().reduce((acc, next) => {
 const images =
     importAll(require.context('./images/champion_squares', false, /\.(png)$/));
 
+const items = 
+    importAll(require.context('./images/items', false,/\.(png)$/));
 
 const rolesImages =
 importAll(require.context('./images/roles', false, /\.(png)$/));
@@ -59,13 +61,31 @@ class MatchHistory extends Component {
                 for(let r in matches[i]['matchups']){
                     let summs = matches[i]['matchups'][r];
                     let sOne = summs[0], sTwo = summs[1];
-                    console.log(matches[i])
+
+                    let sOneItems = sOne['items'], sTwoItems = sTwo['items'];
+                    let sOneItemsImgs = [], sTwoItemsImgs = [];
+
+                    for(let i in sOneItems){
+                        sOneItemsImgs.push(<img src={items[sOneItems[i]+".png"]} className="itemImages"></img>)
+                    }
+                    for(let i in sTwoItems){
+                        sTwoItemsImgs.push(<img src={items[sTwoItems[i]+".png"]} className="itemImages"></img>)
+                    }
+
                     let n = <div className="matchupContainer">
                         <div className="matchup">
                             <div className="matchupStats">{sOne['summoner']}  ({sOne['kills']}/{sOne['deaths']}/{sOne['assists']})</div>
+
+                            <div className="matchupItems">
+                            {sOneItemsImgs}
+                            </div>
                             <div className="matchupChampionLeft">
                                 <img className="matchupChampionImg" src={images[sOne['champ'][0].toUpperCase() + sOne['champ'].slice(1).toLowerCase() + ".png"]}></img></div>
-                                <div className="matchupExtraStats">Cs: {sOne['cs']}<br></br> Vision: {sOne['vision']} <br></br> Pinks: {sOne['vision_wards_bought']}<br></br>
+                                <div className="matchupExtraStats">
+                                    Lane Cs: {sOne['cs']}<br></br>
+                                    Jungle Cs: {sOne['jungle minions killed']}<br></br>
+                                Vision: {sOne['vision']} <br></br> 
+                                Pinks: {sOne['vision_wards_bought']}<br></br>
                             Gold: {sOne['gold_earned']}<br></br>
                             Damage: {sOne['total_champ_damage']}</div>
                         </div>
@@ -78,7 +98,14 @@ class MatchHistory extends Component {
                             
                         <div className="matchupStats">{sTwo['summoner']}  ({sTwo['kills']}/{sTwo['deaths']}/{sTwo['assists']})</div>
 
-                        <div className="matchupExtraStats">Cs: {sTwo['cs']}<br></br> Vision: {sTwo['vision']} <br></br> Pinks: {sTwo['vision_wards_bought']}<br></br>
+                        <div className="matchupItems">
+                            {sTwoItemsImgs}
+                        </div>
+                        <div className="matchupExtraStats">
+                            Lane Cs: {sTwo['cs']}<br></br> 
+                            Jungle Cs: {sTwo['jungle minions killed']}<br></br>
+                        Vision: {sTwo['vision']} <br></br> 
+                        Pinks: {sTwo['vision_wards_bought']}<br></br>
                             Gold: {sTwo['gold_earned']}<br></br>
                             Damage: {sTwo['total_champ_damage']}
                         </div>
@@ -87,7 +114,7 @@ class MatchHistory extends Component {
                     matchups.push(n)
                 }
 
-                let mc = <div className="matchContainer"><div className="matchHeader">Match #{matches.length-i} | {matches[i]['date']} | Duration: {matches[i]['game_duration']} minutes</div>{matchResultsSection}{banSection}{matchups}</div>
+                let mc = <div className="matchContainer"><div className="matchHeader">Match #{matches.length-i} | {matches[i]['date']} | Duration: {matches[i]['game_duration']}</div>{matchResultsSection}{banSection}{matchups}</div>
                 
                 matchElements.push(mc)
             }

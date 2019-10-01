@@ -506,7 +506,7 @@ font-size: 28px;
    text-align:left;
    font-size: 32px;
    font-weight: bold;
-   padding-top:15px;
+   padding-top:10px;
 }
 
 .blueBans{
@@ -542,7 +542,7 @@ font-size: 28px;
 
 .matchupContainer{
     width: 100%;
-    height: 110px;
+    height: 175px;
     margin-top:1%;
     margin-bottom:1%;
     text-align:center;
@@ -561,22 +561,23 @@ font-size: 28px;
 }
 
 .matchupMiddle{
-    width: 10%;
-    height: 95%;
+    width: 90px;
+    height: 90px;
     padding-top: 3px;
     float:left;
+    margin-left: 1%
 }
 
 .matchupRoleImage{
     margin-top:20%;
-    height: 90%;
+    height: 100%
 }
 
 .matchupChampionLeft{
-    margin-top: 5%;
     height:90%;
     width:25%;
-    float:right
+    float:right;
+    margin-top: -2%;
 }
 
 .matchupChampionRight{
@@ -593,21 +594,32 @@ font-size: 28px;
 }
 
 .matchupStats{
-    font-size: 18px;
+    font-size: 20px;
     padding-top: 1%;
     width: 75%;
-    height: 15%;
     float: left;
     font-weight: bold;
     border-bottom: 1px solid black;
-    padding-bottom: 2%;
 }
 
+.matchupItems{
+    height: 24%;
+    width: 75%;
+    float: left;
+    padding-top: 5px;
+    border-bottom: 1px solid black
+}
+
+.itemImages{
+    width: 12.5%;
+    border: 1px solid lightgray;
+    margin-right: 2px;
+}
 .matchupExtraStats{
-    text-align:center;
+    text-align: center;
     padding-top: 1%;
-    width:75%;
-    height:75%;
-    float:left;
-    font-size: 14px
+    width: 75%;
+    height: 60%;
+    float: left;
+    font-size: 14px;
 }

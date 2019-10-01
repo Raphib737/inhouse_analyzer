@@ -149,11 +149,11 @@ class App extends Component {
                         <a className={sClass} href='#' onClick={this.activateState.bind(
                             this)}>Summoners</a>
                     </li><li>
-                        <a className={cClass} href='#' onClick={this.activateState.bind(
-                            this)}>Champions</a>
-                    </li><li>
                         <a className={hClass} href='#' onClick={this.activateState.bind(
                             this)}>History</a>
+                    </li><li>
+                        <a className={cClass} href='#' onClick={this.activateState.bind(
+                            this)}>Champions</a>
                     </li>
                     <li>
                         <a className={gClass} href='#' onClick={this.activateState.bind(

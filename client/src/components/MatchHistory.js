@@ -57,9 +57,9 @@ class MatchHistory extends Component {
                 
                 let banSection = <div className="bans"><div className="blueBans">{blueBans}</div><div className="middleBans">Bans</div><div className="redBans">{redBans}</div></div>
                 
-                
-                for(let r in matches[i]['matchups']){
-                    let summs = matches[i]['matchups'][r];
+                let matchupRoles = ["TOP","JUNGLE","MIDDLE","BOTTOM","SUPPORT"]
+                for(let r in matchupRoles){
+                    let summs = matches[i]['matchups'][matchupRoles[r]];
                     let sOne = summs[0], sTwo = summs[1];
 
                     let sOneItems = sOne['items'], sTwoItems = sTwo['items'];
@@ -90,7 +90,7 @@ class MatchHistory extends Component {
                             Damage: {sOne['total_champ_damage']}</div>
                         </div>
 
-                        <div className="matchupMiddle"><img className="matchupRoleImage" src={rolesImages[r.toLowerCase() + ".png"]}></img></div>
+                        <div className="matchupMiddle"><img className="matchupRoleImage" src={rolesImages[matchupRoles[r].toLowerCase() + ".png"]}></img></div>
 
                         <div className="matchup">
                         <div className="matchupChampionRight">

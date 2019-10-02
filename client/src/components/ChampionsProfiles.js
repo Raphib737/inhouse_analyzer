@@ -34,16 +34,19 @@ class ChampionsProfiles extends Component {
       roles_element.push(<img className='CrolesImage' src={rolesImages[r_i]}></img>)
     }
 
-    champ_pic = <img className='Cchamps' src={images[source]}><
-        /img>
+    champ_pic = <img className='Cchamps' src={images[source]}></img>
+
+    let matchups = []
+    for(var i in d['matchups']){
+        console.log(d['matchups'][i])
+        matchups.push(<div>{i}:{d['matchups'][i]['win_rate']}</div>)
+    }
+
     return (<div className='CProfiles'><div className='Cname'>{d['name']}</div>
         <div className='Cpicture'>{champ_pic}<
             /div><div className='Croles'>{roles_element}</div>
           <div className='Crates'>Won: {d['won']}&nbsp;
             Lost: {d['lost']}<br></br>
-            Win Rate: {d['win rate']}<br></br>Ban Rate: {d['ban rate']}</div><
-        /div>)
-          }
-        };
+            Win Rate: {d['win rate']}<br></br>Ban Rate: {d['ban rate']}</div><div className="Cmatchups">{}</div></div>)}};
         
 export default ChampionsProfiles;

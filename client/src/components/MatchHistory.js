@@ -95,7 +95,7 @@ class MatchHistory extends Component {
                             </div>
                             
                             <div className="matchupChampionRight">
-                                <div className="matchupScoreLeft">{sTwo['kills']}/{sTwo['deaths']}/{sTwo['assists']} </div>
+                                <div className="matchupScoreLeft">{sOne['kills']}/{sOne['deaths']}/{sOne['assists']} </div>
                                 <img className="matchupChampionImg" src={images[sOne['champ'][0].toUpperCase() + sOne['champ'].slice(1).toLowerCase() + ".png"]}></img></div>                            
                         </div>
 
@@ -106,7 +106,7 @@ class MatchHistory extends Component {
                         <div className="matchupStats">{sTwo['summoner']}</div>
 
                         <div className="matchupChampionLeft">
-                            <img className="matchupChampionImg" src={images[sTwo['champ'][0].toUpperCase() + sTwo['champ'].slice(1).toLowerCase() + ".png"]}></img><div className="matchupScoreRight">{sOne['kills']}/{sOne['deaths']}/{sOne['assists']} </div></div>
+                            <img className="matchupChampionImg" src={images[sTwo['champ'][0].toUpperCase() + sTwo['champ'].slice(1).toLowerCase() + ".png"]}></img><div className="matchupScoreRight">{sTwo['kills']}/{sTwo['deaths']}/{sTwo['assists']} </div></div>
 
                         <div className="matchupItems">
                             {sTwoItemsImgs}

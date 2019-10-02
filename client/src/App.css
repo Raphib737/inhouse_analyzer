@@ -573,24 +573,24 @@ font-size: 28px;
 }
 
 .matchupScoreLeft{
-    text-align: center;
+    text-align: right;
     width: 50%;
     height: 100%;
     float: left;
     vertical-align: middle;
     line-height: 80px;
-    font-size:24px;
+    font-size:18px;
     font-weight:bold;
 }
 
 .matchupScoreRight{
-    text-align: center;
+    text-align: left;
     width: 50%;
     height: 100%;
     float: right;
     vertical-align: middle;
     line-height: 80px;
-    font-size:24px;
+    font-size:18px;
     font-weight:bold;   
 }
 .matchupRoleImage{

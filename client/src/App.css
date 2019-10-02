@@ -644,12 +644,12 @@ font-size: 28px;
 }
 
 .extraStatDiv{
-    width:47%;
+    width:35%;
     overflow-wrap:normal;
     border: 1px solid black;
     float:left;
 }
 .extraStatIcon{
-    width:75%;
+    width:100%;
     border-bottom: 1px dotted black
 }

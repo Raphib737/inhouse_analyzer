@@ -86,7 +86,7 @@ class MatchHistory extends Component {
 
                                 <div className="extraStatDiv">Vision {sOne['vision']}</div>
 
-                                <div className="extraStatDiv">Damage {sOne['total_champ_damage']}</div>
+                                <div className="extraStatDiv">Dmg {sOne['total_champ_damage']}</div>
                  
                             </div>
 
@@ -118,7 +118,7 @@ class MatchHistory extends Component {
 
                             <div className="extraStatDiv">Vision {sTwo['vision']}</div>
 
-                            <div className="extraStatDiv">Damage {sTwo['total_champ_damage']}</div>
+                            <div className="extraStatDiv">Dmg {sTwo['total_champ_damage']}</div>
 
                         </div>
                         </div>

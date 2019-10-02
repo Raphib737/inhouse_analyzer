@@ -114,7 +114,7 @@ class MatchHistory extends Component {
                     matchups.push(n)
                 }
 
-                let mc = <div className="matchContainer"><div className="matchHeader">Match #{matches.length-i} | {matches[i]['date']} | Duration: {matches[i]['game_duration']}</div>{matchResultsSection}{banSection}{matchups}</div>
+                let mc = <div className="matchContainer"><div className="matchHeader">Match #{matches.length-i} | {matches[i]['date']} | Duration: {matches[i]['game_duration']}</div>{matchResultsSection}{matchups}{banSection}</div>
                 
                 matchElements.push(mc)
             }

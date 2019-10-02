@@ -507,6 +507,7 @@ font-size: 28px;
    font-size: 32px;
    font-weight: bold;
    padding-top:10px;
+   padding-bottom:2%;
 }
 
 .blueBans{
@@ -546,8 +547,8 @@ font-size: 28px;
     margin-top:1%;
     margin-bottom:1%;
     text-align:center;
-    border-top: 1px solid black;
-    padding-bottom: 1%
+    border-bottom: 1px solid black;
+    padding-bottom: 3%
 }
 
 .matchup{

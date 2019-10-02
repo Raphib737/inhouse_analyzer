@@ -543,7 +543,7 @@ font-size: 28px;
 
 .matchupContainer{
     width: 100%;
-    height: 175px;
+    height: 100px;
     margin-top:1%;
     margin-bottom:1%;
     text-align:center;
@@ -555,10 +555,13 @@ font-size: 28px;
     width: 40%;
     height: 100%;
     float:left;
-    margin-left:1%
+    margin-left:1%;
+    text-align:left;
 }
+
 .matchup:first-child{
-    margin-left:5%
+    margin-left:6%;
+    text-align:right;
 }
 
 .matchupMiddle{
@@ -569,6 +572,27 @@ font-size: 28px;
     margin-left: 1%
 }
 
+.matchupScoreLeft{
+    text-align: center;
+    width: 50%;
+    height: 100%;
+    float: left;
+    vertical-align: middle;
+    line-height: 80px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.matchupScoreRight{
+    text-align: center;
+    width: 50%;
+    height: 100%;
+    float: right;
+    vertical-align: middle;
+    line-height: 80px;
+    font-size:24px;
+    font-weight:bold;   
+}
 .matchupRoleImage{
     margin-top:20%;
     height: 100%
@@ -576,51 +600,56 @@ font-size: 28px;
 
 .matchupChampionLeft{
     height:90%;
-    width:25%;
-    float:right;
-    margin-top: -2%;
+    width:40%;
+    float:left;
 }
 
 .matchupChampionRight{
-    margin-top: 5%;
-    height:90%;
-    width:25%;
-    float:left
+    height: 90%;
+    width: 40%;
+    float: right;
 }
 
 .matchupChampionImg{
-    margin-top:10%;
     height: 75px;
-    width:75px;
+    width: 45%;
 }
 
 .matchupStats{
-    font-size: 20px;
-    padding-top: 1%;
-    width: 75%;
+    font-size: 24px;
+    width: 100%;
     float: left;
     font-weight: bold;
-    border-bottom: 1px solid black;
 }
 
 .matchupItems{
-    width: 75%;
+    width: 38%;
     float: left;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom: 1px solid black
 }
 
 .itemImages{
-    width: 12.5%;
+    width: 20%;
     border: 1px solid lightgray;
     margin-right: 2px;
 }
 .matchupExtraStats{
     text-align: center;
     padding-top: 1%;
-    width: 75%;
+    width: 21%;
     height: 60%;
     float: left;
-    font-size: 14px;
+    font-size: 12px;
+}
+
+.extraStatDiv{
+    width:47%;
+    overflow-wrap:normal;
+    border: 1px solid black;
+    float:left;
+}
+.extraStatIcon{
+    width:75%;
+    border-bottom: 1px dotted black
 }

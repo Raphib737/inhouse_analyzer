@@ -84,7 +84,7 @@ class MatchHistory extends Component {
                                 
                                 <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['gold.png']}></img> {sOne['gold_earned']}</div>
 
-                                <div className="extraStatDiv">Vision {sOne['vision']}</div>
+                                <div className="extraStatDiv">Vision<br></br> {sOne['vision']}</div>
 
                                 <div className="extraStatDiv">Dmg {sOne['total_champ_damage']}</div>
                  
@@ -116,9 +116,9 @@ class MatchHistory extends Component {
                             
                             <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['gold.png']}></img> {sTwo['gold_earned']}</div>
 
-                            <div className="extraStatDiv">Vision {sTwo['vision']}</div>
+                            <div className="extraStatDiv">Vision <br></br>{sTwo['vision']}</div>
 
-                            <div className="extraStatDiv">Dmg {sTwo['total_champ_damage']}</div>
+                            <div className="extraStatDiv">Dmg <br></br>{sTwo['total_champ_damage']}</div>
 
                         </div>
                         </div>

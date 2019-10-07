@@ -24,6 +24,7 @@ class App extends Component {
         season2: false,
         season1: false,
         overall: false,
+        history: true,
         overallData: '',
         season3Data: '',
         season2Data: '',

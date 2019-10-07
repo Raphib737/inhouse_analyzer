@@ -80,7 +80,7 @@ class MatchHistory extends Component {
                             <div className="matchupStats">{sOne['summoner']}  </div>
 
                             <div className="matchupExtraStats">
-                                <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['cs.png']}></img> {sOne['cs'] + sOne['jungle minions killed']}</div>
+                                <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['cs.png']}></img> {sOne['cs'] + sOne['jungle_minions_killed']}</div>
                                 
                                 <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['gold.png']}></img> {sOne['gold_earned']}</div>
 
@@ -112,7 +112,7 @@ class MatchHistory extends Component {
                             {sTwoItemsImgs}
                         </div>
                         <div className="matchupExtraStats">
-                            <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['cs.png']}></img> {sTwo['cs'] + sTwo['jungle minions killed']}</div>
+                            <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['cs.png']}></img> {sTwo['cs'] + sTwo['jungle_minions_killed']}</div>
                             
                             <div className="extraStatDiv"><img className="extraStatIcon" src={statImages['gold.png']}></img> {sTwo['gold_earned']}</div>
 

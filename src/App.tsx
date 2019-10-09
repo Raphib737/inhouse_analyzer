@@ -6,113 +6,112 @@ import Overview from "./components/Overview";
 import Summoners from "./components/Summoners";
 import TeamGenerator from "./components/TeamGenerator";
 
-class App extends Component {
+export class App extends Component {
   state = {
-    response: "",
-    data: "",
-    post: "",
-    responseToPost: "",
-    summoners: false,
-    overview: false,
-    champions: false,
-    generator: false,
     activeSeason: "season3",
     activeTab: "history",
-    season3: true,
-    season2: false,
-    season1: false,
-    overall: false,
+    champions: false,
+    data: "",
+    generator: false,
     history: true,
+    overall: false,
     overallData: "",
-    season3Data: "",
-    season2Data: "",
+    overview: false,
+    post: "",
+    // tslint:disable-next-line: no-any Response type has no interface yet
+    response: {} as any,
+    responseToPost: "",
+    season1: false,
     season1Data: "",
+    season2: false,
+    season2Data: "",
+    season3: true,
+    season3Data: "",
+    summoners: false,
   };
 
   componentDidMount() {
     this.callApi(1)
       .then((res) => this.setState({ season1Data: res }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
 
     this.callApi(2)
       .then((res) => this.setState({ season2Data: res }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
 
     this.callApi(3)
       .then((res) => this.setState({ season3Data: res, response: res }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
 
     this.callApi("overall")
       .then((res) => this.setState({ overallData: res }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
-  callApi = async (season) => {
-    var url = "/api/season/" + season;
+  async callApi(season: number | "overall") {
+    const url = "/api/season/" + season;
     const response = await fetch(url);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;
-  };
-
-  activateState(e) {
-    let activeState = e.target.text.toLowerCase();
-    let newState = { activeTab: activeState };
-    let states = ["summoners", "champions", "overview", "history", "generator"];
-    for (var i in states) {
-      if (activeState === states[i]) {
-        newState[states[i]] = true;
-      } else {
-        newState[states[i]] = false;
-      }
-    }
-    this.setState(newState);
   }
 
-  activateSeason(e) {
-    let activeState = e.target.getAttribute("value");
-    let newState = { activeSeason: activeState };
-    let states = ["season1", "season2", "season3", "overall"];
-    for (var i in states) {
-      if (activeState === states[i]) {
-        newState[states[i]] = true;
-      } else {
-        newState[states[i]] = false;
-      }
-    }
+  activateState(
+    state: "summoners" | "champions" | "overview" | "history" | "generator"
+  ) {
+    return () => {
+      this.setState({
+        activeTab: state,
+        champions: state === "champions",
+        generator: state === "generator",
+        history: state === "history",
+        overview: state === "overview",
+        summoners: state === "summoners",
+      });
+    };
+  }
 
-    if (activeState == "season1") {
-      newState["response"] = this.state.season1Data;
-    } else if (activeState == "season2") {
-      newState["response"] = this.state.season2Data;
-    } else if (activeState == "season3") {
-      newState["response"] = this.state.season3Data;
-    } else {
-      newState["response"] = this.state.overallData;
-    }
+  activateSeason(season: "season1" | "season2" | "season3" | "overall") {
+    return () => {
+      const response =
+        season === "season1"
+          ? this.state.season1Data
+          : season === "season2"
+          ? this.state.season2Data
+          : season === "season3"
+          ? this.state.season3Data
+          : this.state.overallData;
 
-    this.setState(newState);
+      this.setState({
+        activeSeason: season,
+        overall: season === "overall",
+        response,
+        season1: season === "season1",
+        season2: season === "season2",
+        season3: season === "season3",
+      });
+    };
   }
 
   render() {
-    let s3Class = this.state.season3 ? "active" : "";
-    let s2Class = this.state.season2 ? "active" : "";
-    let s1Class = this.state.season1 ? "active" : "";
-    let overallClass = this.state.overall ? "active" : "";
-    let oClass = this.state.overview ? "active" : "";
-    let sClass = this.state.summoners ? "active" : "";
-    let cClass = this.state.champions ? "active" : "";
-    let hClass = this.state.history ? "active" : "";
-    let gClass = this.state.generator ? "active" : "";
+    const s3Class = this.state.season3 ? "active" : "";
+    const s2Class = this.state.season2 ? "active" : "";
+    const s1Class = this.state.season1 ? "active" : "";
+    const overallClass = this.state.overall ? "active" : "";
+    const oClass = this.state.overview ? "active" : "";
+    const sClass = this.state.summoners ? "active" : "";
+    const cClass = this.state.champions ? "active" : "";
+    const hClass = this.state.history ? "active" : "";
+    const gClass = this.state.generator ? "active" : "";
 
-    let elementToLoad = [];
+    const elementToLoad = [];
 
     if (this.state.activeTab === "overview") {
       elementToLoad.push(<Overview data={this.state.response} />);
     } else if (this.state.activeTab === "champions") {
       elementToLoad.push(<Champions data={this.state.response} />);
     } else if (this.state.activeTab === "summoners") {
-      elementToLoad.push(<Summoners data={this.state.response["summoners"]} />);
+      elementToLoad.push(<Summoners data={this.state.response.summoners} />);
     } else if (
       this.state.activeTab === "generator" &&
       this.state.activeSeason !== ""
@@ -131,8 +130,7 @@ class App extends Component {
             <a
               className={s1Class}
               href="#"
-              value="season1"
-              onClick={this.activateSeason.bind(this)}
+              onClick={this.activateSeason("season1")}
             >
               Season 1
             </a>
@@ -141,8 +139,7 @@ class App extends Component {
             <a
               className={s2Class}
               href="#"
-              value="season2"
-              onClick={this.activateSeason.bind(this)}
+              onClick={this.activateSeason("season2")}
             >
               Season 2
             </a>
@@ -151,8 +148,7 @@ class App extends Component {
             <a
               className={s3Class}
               href="#"
-              value="season3"
-              onClick={this.activateSeason.bind(this)}
+              onClick={this.activateSeason("season3")}
             >
               Season 3
             </a>
@@ -161,8 +157,7 @@ class App extends Component {
             <a
               className={overallClass}
               href="#"
-              value="overall"
-              onClick={this.activateSeason.bind(this)}
+              onClick={this.activateSeason("overall")}
             >
               Overall
             </a>
@@ -174,7 +169,7 @@ class App extends Component {
             <a
               className={oClass}
               href="#"
-              onClick={this.activateState.bind(this)}
+              onClick={this.activateState("overview")}
             >
               Overview
             </a>
@@ -183,7 +178,7 @@ class App extends Component {
             <a
               className={sClass}
               href="#"
-              onClick={this.activateState.bind(this)}
+              onClick={this.activateState("summoners")}
             >
               Summoners
             </a>
@@ -192,7 +187,7 @@ class App extends Component {
             <a
               className={hClass}
               href="#"
-              onClick={this.activateState.bind(this)}
+              onClick={this.activateState("history")}
             >
               History
             </a>
@@ -201,7 +196,7 @@ class App extends Component {
             <a
               className={cClass}
               href="#"
-              onClick={this.activateState.bind(this)}
+              onClick={this.activateState("champions")}
             >
               Champions
             </a>
@@ -210,7 +205,7 @@ class App extends Component {
             <a
               className={gClass}
               href="#"
-              onClick={this.activateState.bind(this)}
+              onClick={this.activateState("generator")}
             >
               Generator
             </a>
@@ -221,5 +216,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

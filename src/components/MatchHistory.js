@@ -44,7 +44,7 @@ class MatchHistory extends Component {
                     redResult = "UNDECIDED";
                 }
 
-                let matchResultsSection = <div className="resultsSection"><div className="blueResultsSection">BLUE {blueResult}</div><div className="redResultsSection">RED {redResult}</div></div>
+                let matchResultsSection = <div className="resultsSection"><div className="blueResultsSection">BLUE {blueResult} (K:{matches[i]['blue_kills']}|G:{matches[i]['blue_gold']})</div><div className="redResultsSection">RED {redResult} (K:{matches[i]['red_kills']}|G:{matches[i]['red_gold']})</div></div>
                 
                 
                 for(let p in matches[i]['blue_bans']){

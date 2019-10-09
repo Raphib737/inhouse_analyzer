@@ -16,19 +16,20 @@ var overviewOverallData = require('./overview_data/overall.json')
 
 // production mode
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(__dirname, 'build')));
 
   app.get('/', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
+    res.sendfile(path.join(__dirname = 'build/index.html'));
   })
 }
-else {app.get(
-    '/',
-    (req,
-     res) => {res.sendfile(path.join(__dirname = 'client/public/index.html'))})}
+else {
+  app.get('/', (req, res) => {
+    res.sendfile(path.join(__dirname = 'public/index.html'));
+  });
+}
 
 app.get('/api/season/3', (req, res) => {
-    res.send(overviewSeason3Data);
+  res.send(overviewSeason3Data);
 });
 
 app.get('/api/season/2', (req, res) => {

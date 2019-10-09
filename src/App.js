@@ -18,12 +18,13 @@ class App extends Component {
         overview: false,
         champions: false,
         generator: false,
-        activeSeason: '',
-        season3: false,
+        activeSeason: 'season3',
+        activeTab:'history',
+        season3: true,
         season2: false,
         season1: false,
         overall: false,
-        history: false,
+        history: true,
         overallData: '',
         season3Data: '',
         season2Data: '',
@@ -40,13 +41,14 @@ class App extends Component {
             .catch(err => console.log(err));
         
         this.callApi(3)
-            .then(res => this.setState({season3Data: res}))
+            .then(res => this.setState({season3Data: res,response: res}))
             .catch(err => console.log(err));
 
         this.callApi('overall')
             .then(res => this.setState({overallData: res}))
             .catch(err => console.log(err));
     }
+
     callApi = async (season) => {
         var url = '/api/season/' + season;
         const response = await fetch(url);

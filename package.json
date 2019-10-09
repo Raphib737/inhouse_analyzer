@@ -11,7 +11,8 @@
     "dev-server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn dev-server\" \"yarn dev-client\"",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fix": "prettier --write \"src/**/**.js\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,7 +30,8 @@
     "react-tooltip": "^3.10.0"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^4.0.1",
+    "prettier": "1.18.2"
   },
   "browserslist": {
     "production": [

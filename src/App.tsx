@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Champions from "./components/Champions";
+import { Header } from "./components/Header";
 import MatchHistory from "./components/MatchHistory";
 import Overview from "./components/Overview";
 import Summoners from "./components/Summoners";
@@ -125,6 +126,7 @@ export class App extends Component {
     }
     return (
       <div className="main">
+        <Header />
         <ul className="navbar">
           <li>
             <a

@@ -1,21 +1,46 @@
 {
-    "name": "inhouse_analyzer",
-    "version": "1.0.0",
-    "scripts": {
-        "client-install": "npm install --prefix client",
-        "client": "cd client && yarn start",
-        "server": "nodemon server.js",
-        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
-    },
-    "dependencies": {
-        "body-parser": "^1.18.3",
-        "canvasjs": "^1.8.1",
-        "cors": "^2.8.5",
-        "express": "^4.16.4",
-        "react-tooltip": "^3.10.0"
-    },
-    "devDependencies": {
-        "concurrently": "^4.0.1"
-    }
+  "name": "inhouse_analyzer",
+  "version": "1.0.0",
+  "engines": {
+    "yarn": "1.19.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "react-scripts build",
+    "dev-client": "react-scripts start",
+    "dev-server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn dev-server\" \"yarn dev-client\"",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "proxy": "http://localhost:5000/",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "canvasjs": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "nodemon": "^1.19.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-scripts": "^3.2.0",
+    "react-tooltip": "^3.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

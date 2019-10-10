@@ -1,11 +1,12 @@
+import { ThemeProvider } from "@material-ui/styles";
 import React, { Component } from "react";
 import "./App.css";
 import Champions from "./components/Champions";
-import { Header } from "./components/Header";
 import MatchHistory from "./components/MatchHistory";
 import Overview from "./components/Overview";
 import Summoners from "./components/Summoners";
 import TeamGenerator from "./components/TeamGenerator";
+import { THEME } from "./theme";
 
 export class App extends Component {
   state = {
@@ -125,96 +126,97 @@ export class App extends Component {
       elementToLoad.push(<MatchHistory data={this.state.response} />);
     }
     return (
-      <div className="main">
-        <Header />
-        <ul className="navbar">
-          <li>
-            <a
-              className={s1Class}
-              href="#"
-              onClick={this.activateSeason("season1")}
-            >
-              Season 1
-            </a>
-          </li>
-          <li>
-            <a
-              className={s2Class}
-              href="#"
-              onClick={this.activateSeason("season2")}
-            >
-              Season 2
-            </a>
-          </li>
-          <li>
-            <a
-              className={s3Class}
-              href="#"
-              onClick={this.activateSeason("season3")}
-            >
-              Season 3
-            </a>
-          </li>
-          <li>
-            <a
-              className={overallClass}
-              href="#"
-              onClick={this.activateSeason("overall")}
-            >
-              Overall
-            </a>
-          </li>
-        </ul>
+      <ThemeProvider theme={THEME}>
+        <div className="main">
+          <ul className="navbar">
+            <li>
+              <a
+                className={s1Class}
+                href="#"
+                onClick={this.activateSeason("season1")}
+              >
+                Season 1
+              </a>
+            </li>
+            <li>
+              <a
+                className={s2Class}
+                href="#"
+                onClick={this.activateSeason("season2")}
+              >
+                Season 2
+              </a>
+            </li>
+            <li>
+              <a
+                className={s3Class}
+                href="#"
+                onClick={this.activateSeason("season3")}
+              >
+                Season 3
+              </a>
+            </li>
+            <li>
+              <a
+                className={overallClass}
+                href="#"
+                onClick={this.activateSeason("overall")}
+              >
+                Overall
+              </a>
+            </li>
+          </ul>
 
-        <ul className="navbar">
-          <li>
-            <a
-              className={oClass}
-              href="#"
-              onClick={this.activateState("overview")}
-            >
-              Overview
-            </a>
-          </li>
-          <li>
-            <a
-              className={sClass}
-              href="#"
-              onClick={this.activateState("summoners")}
-            >
-              Summoners
-            </a>
-          </li>
-          <li>
-            <a
-              className={hClass}
-              href="#"
-              onClick={this.activateState("history")}
-            >
-              History
-            </a>
-          </li>
-          <li>
-            <a
-              className={cClass}
-              href="#"
-              onClick={this.activateState("champions")}
-            >
-              Champions
-            </a>
-          </li>
-          <li>
-            <a
-              className={gClass}
-              href="#"
-              onClick={this.activateState("generator")}
-            >
-              Generator
-            </a>
-          </li>
-        </ul>
-        {elementToLoad}
-      </div>
+          <ul className="navbar">
+            <li>
+              <a
+                className={oClass}
+                href="#"
+                onClick={this.activateState("overview")}
+              >
+                Overview
+              </a>
+            </li>
+            <li>
+              <a
+                className={sClass}
+                href="#"
+                onClick={this.activateState("summoners")}
+              >
+                Summoners
+              </a>
+            </li>
+            <li>
+              <a
+                className={hClass}
+                href="#"
+                onClick={this.activateState("history")}
+              >
+                History
+              </a>
+            </li>
+            <li>
+              <a
+                className={cClass}
+                href="#"
+                onClick={this.activateState("champions")}
+              >
+                Champions
+              </a>
+            </li>
+            <li>
+              <a
+                className={gClass}
+                href="#"
+                onClick={this.activateState("generator")}
+              >
+                Generator
+              </a>
+            </li>
+          </ul>
+          {elementToLoad}
+        </div>
+      </ThemeProvider>
     );
   }
 }

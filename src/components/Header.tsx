@@ -17,7 +17,9 @@ import {
   ViewCarousel,
   ViewDay,
 } from "@material-ui/icons";
+import { History, Location } from "history";
 import React, { ChangeEvent, useState } from "react";
+import { Link } from "react-router-dom";
 
 const AntTabs = withStyles((theme) => ({
   indicator: {
@@ -25,7 +27,7 @@ const AntTabs = withStyles((theme) => ({
   },
 }))(Tabs);
 
-const AntTab = withStyles((theme) => ({
+const AntTab: any = withStyles((theme) => ({
   root: {
     textTransform: "none",
     fontWeight: theme.typography.fontWeightRegular,
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(2),
   },
   glow: {
-    textShadow: `0 0 0.2em ${theme.palette.secondary.light}, 0 0 0.2em ${theme.palette.secondary.light}, 0 0 0.2em ${theme.palette.secondary.light}`,
+    textShadow: `0 0 0.2em ${theme.palette.secondary.light}`,
   },
   title: {
     fontFamily: '"Audiowide", cursive',
@@ -78,25 +80,150 @@ export enum Season {
   THREE,
 }
 
-export function Header() {
+export type SeasonString = "1" | "2" | "3" | "O";
+
+export enum Route {
+  OVERVIEW,
+  CHAMPIONS,
+  SUMMONERS,
+  GENRATOR,
+  HISTORY,
+}
+
+export type RouteString =
+  | "/overview"
+  | "/champions"
+  | "/summoners"
+  | "/generator"
+  | "/history";
+
+export function routeToString(route: Route): RouteString {
+  switch (route) {
+    case Route.OVERVIEW:
+      return "/overview";
+    case Route.CHAMPIONS:
+      return "/champions";
+    case Route.SUMMONERS:
+      return "/summoners";
+    case Route.GENRATOR:
+      return "/generator";
+    case Route.HISTORY:
+    default:
+      return "/history";
+  }
+}
+
+function stringToRoute(str: RouteString): Route {
+  switch (str) {
+    case "/overview":
+      return Route.OVERVIEW;
+    case "/champions":
+      return Route.CHAMPIONS;
+    case "/summoners":
+      return Route.SUMMONERS;
+    case "/generator":
+      return Route.GENRATOR;
+    case "/history":
+    default:
+      return Route.HISTORY;
+  }
+}
+
+export function Header({
+  location,
+  history,
+  onSeasonChange,
+}: {
+  location: Location;
+  history: History;
+  onSeasonChange: (season: Season) => void;
+}) {
   const classes = useStyles();
-  const [value, setValue] = useState(2);
-  const [currentSeason, setSeason] = useState(Season.THREE);
+  const [route, setRoute] = useState(
+    stringToRoute(location.pathname as RouteString)
+  );
+  const seasonMatch = location.search.match(/s=(.)/);
+  const seasonQuery = seasonMatch !== null ? seasonMatch[1] : "3";
+
+  const [currentSeason, setSeason] = useState(
+    seasonQuery === "1"
+      ? Season.ONE
+      : seasonQuery === "2"
+      ? Season.TWO
+      : seasonQuery === "3"
+      ? Season.THREE
+      : Season.OVERALL
+  );
 
   const selectSeason = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSeason(event.target.value as Season);
+    const season = event.target.value as Season;
+    setSeason(season);
+
+    const param =
+      season === Season.ONE
+        ? "1"
+        : season === Season.TWO
+        ? "2"
+        : season === Season.THREE
+        ? "3"
+        : "O";
+
+    history.push(`${location.pathname}?s=${param}`);
+    onSeasonChange(season);
   };
 
-  const selectSection = (_: ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const changeRoute = (_: ChangeEvent<{}>, route: Route) => {
+    setRoute(route);
   };
 
   const selectOverrides = {
     select: classes.select,
   };
 
+  const paths = [
+    {
+      to: (location: Location) => ({ ...location, pathname: "/summoners" }),
+      value: Route.SUMMONERS,
+      icon: <FormatListNumbered />,
+      label: "Summoners",
+    },
+    {
+      to: (location: Location) => ({ ...location, pathname: "/history" }),
+      value: Route.HISTORY,
+      icon: <ViewDay />,
+      label: "History",
+    },
+    {
+      to: (location: Location) => ({ ...location, pathname: "/generator" }),
+      value: Route.GENRATOR,
+      icon: <GroupAdd />,
+      label: "Generator",
+    },
+    {
+      to: (location: Location) => ({ ...location, pathname: "/overview" }),
+      value: Route.OVERVIEW,
+      icon: <ViewCarousel />,
+      label: "Overview",
+    },
+    {
+      to: (location: Location) => ({ ...location, pathname: "/champions" }),
+      value: Route.CHAMPIONS,
+      icon: <Layers />,
+      label: "Champions",
+    },
+  ].map(({ to, value, icon, label }) => (
+    <AntTab
+      key={value}
+      component={Link}
+      to={to}
+      icon={icon}
+      label={label}
+      value={value}
+    />
+  ));
+
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Typography
           variant="h4"
@@ -108,16 +235,12 @@ export function Header() {
         </Typography>
 
         <AntTabs
-          value={value}
+          value={route}
           className={classes.navigation}
           variant="standard"
-          onChange={selectSection}
+          onChange={changeRoute}
         >
-          <AntTab icon={<FormatListNumbered />} label="Overview" />
-          <AntTab icon={<ViewCarousel />} label="Summoners" />
-          <AntTab icon={<ViewDay />} label="History" />
-          <AntTab icon={<Layers />} label="Champions" />
-          <AntTab icon={<GroupAdd />} label="Generator" />
+          {paths}
         </AntTabs>
 
         <div className={classes.seasons}>

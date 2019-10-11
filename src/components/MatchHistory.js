@@ -1,5 +1,5 @@
-import "../App.css";
 import React, { Component } from "react";
+import "../App.css";
 
 const importAll = (require) =>
   require.keys().reduce((acc, next) => {
@@ -32,7 +32,7 @@ class MatchHistory extends Component {
       blueResult,
       redResult;
 
-    if (typeof d == "object") {
+    if (d !== null) {
       let matches = d["match_history"];
       for (var i in matches) {
         let blueBans = [],

@@ -1,7 +1,7 @@
-import "../App.css";
-
 import React, { Component } from "react";
+import "../App.css";
 import ChampionsProfiles from "./ChampionsProfiles";
+
 
 class Champions extends Component {
   constructor(props) {
@@ -9,9 +9,9 @@ class Champions extends Component {
   }
 
   render() {
-    let d = this.props.data["champions"];
     var elements = [];
-    if (typeof d == "object") {
+    if (this.props.data !== null) {
+    let d = this.props.data["champions"];
       let champ_list = d["champions"];
       for (var i in champ_list) {
         d[champ_list[i]]["name"] = champ_list[i];

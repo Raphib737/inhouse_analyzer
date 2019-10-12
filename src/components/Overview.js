@@ -1,7 +1,7 @@
-import "../App.css";
-
 import React, { Component } from "react";
+import "../App.css";
 import SummonerProfiles from "./OverviewProfiles";
+
 
 const importAll = (require) =>
   require.keys().reduce((acc, next) => {
@@ -24,7 +24,7 @@ class Overview extends Component {
       bannedC = [],
       pickedC = [];
 
-    if (typeof d == "object") {
+    if (d !== null) {
       var bannedChamps = d["champions"]["banned champions"];
       var pickedChamps = d["champions"]["picked champions"];
       var summoners = d["summoners"]["sorted_summoners"];

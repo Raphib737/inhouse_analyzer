@@ -8,12 +8,8 @@ import {
   withRouter,
 } from "react-router-dom";
 import "./App.css";
-import Champions from "./components/Champions";
-import { Header, Season } from "./components/Header";
-import MatchHistory from "./components/MatchHistory";
-import Overview from "./components/Overview";
-import Summoners from "./components/Summoners";
-import TeamGenerator from "./components/TeamGenerator";
+import { Header } from "./components/Header";
+import { ROUTES, Season } from "./routing";
 import { THEME } from "./theme";
 
 export class App extends Component {
@@ -69,8 +65,15 @@ export class App extends Component {
             : this.state.overallData,
       });
     };
+
     const HeaderWithLocation = withRouter((props) => (
       <Header {...props} onSeasonChange={changeSeason} />
+    ));
+
+    const routes = Object.values(ROUTES).map(({ value, pathname, RouteTo }) => (
+      <Route key={value} path={pathname}>
+        <RouteTo data={this.state.response} />
+      </Route>
     ));
 
     return (
@@ -79,21 +82,8 @@ export class App extends Component {
           <HeaderWithLocation />
 
           <Switch>
-            <Route path="/summoners">
-              <Summoners data={this.state.response} />
-            </Route>
-            <Route path="/history">
-              <MatchHistory data={this.state.response} />
-            </Route>
-            <Route path="/generator">
-              <TeamGenerator data={this.state.response} />
-            </Route>
-            <Route path="/overview">
-              <Overview data={this.state.response} />
-            </Route>
-            <Route path="/champions">
-              <Champions data={this.state.response} />
-            </Route>
+            {routes}
+
             <Redirect from="/" to="/summoners?s=3" />
           </Switch>
         </Router>

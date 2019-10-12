@@ -18,11 +18,11 @@ type ForEachEnum<E extends Route | Season, T> = {
 };
 
 export enum Route {
+  SUMMONERS,
+  HISTORY,
+  GENRATOR,
   OVERVIEW,
   CHAMPIONS,
-  SUMMONERS,
-  GENRATOR,
-  HISTORY,
 }
 
 export enum Season {
@@ -45,6 +45,7 @@ interface SeasonQueryConfig {
   query: string;
   label: string;
   value: Season;
+  shorthand: string;
 }
 
 export const ROUTES: ForEachEnum<Route, RouteConfig> = {
@@ -93,21 +94,25 @@ export const ROUTES: ForEachEnum<Route, RouteConfig> = {
 export const SEASON_QUERIES: ForEachEnum<Season, SeasonQueryConfig> = {
   [Season.OVERALL]: {
     query: "o",
+    shorthand: "All",
     label: "Overall",
     value: Season.OVERALL,
   },
   [Season.ONE]: {
     query: "1",
+    shorthand: "1",
     label: "Season 1",
     value: Season.ONE,
   },
   [Season.TWO]: {
     query: "2",
+    shorthand: "2",
     label: "Season 2",
     value: Season.TWO,
   },
   [Season.THREE]: {
     query: "3",
+    shorthand: "3",
     label: "Season 3",
     value: Season.THREE,
   },
@@ -117,6 +122,7 @@ function pathGenerator(pathname: string) {
   return (location: Location) => ({ ...location, pathname });
 }
 
+const DEFAULT_SESSION = Season.THREE;
 export function parseSeasonQuery(location: Location): Season {
   const match = location.search.match(/s=(.)/);
   if (match === null) return Season.THREE;
@@ -143,3 +149,5 @@ export function parseRoute(location: Location): Route {
 
   return targetRoute.value;
 }
+
+export const DEFAULT_LOCATION = `${ROUTES[DEFAULT_ROUTE].pathname}?s=${SEASON_QUERIES[DEFAULT_SESSION].query}`;

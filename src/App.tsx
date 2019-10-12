@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { Header } from "./components/Header";
-import { ROUTES, Season } from "./routing";
+import { DEFAULT_LOCATION, ROUTES, Season } from "./routing";
 import { THEME } from "./theme";
 
 export class App extends Component {
@@ -84,7 +84,7 @@ export class App extends Component {
           <Switch>
             {routes}
 
-            <Redirect from="/" to="/summoners?s=3" />
+            <Redirect from="/" to={DEFAULT_LOCATION} />
           </Switch>
         </Router>
       </ThemeProvider>

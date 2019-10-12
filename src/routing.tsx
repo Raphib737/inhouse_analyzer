@@ -11,7 +11,8 @@ import Champions from "./components/Champions";
 import MatchHistory from "./components/MatchHistory";
 import Overview from "./components/Overview";
 import Summoners from "./components/Summoners";
-import TeamGenerator from "./components/TeamGenerator";
+// import TeamGenerator from "./components/TeamGenerator";
+import TeamGeneratorBeta from "./components/TeamGeneratorBeta";
 
 type ForEachEnum<E extends Route | Season, T> = {
   [route in E]: T;
@@ -20,7 +21,7 @@ type ForEachEnum<E extends Route | Season, T> = {
 export enum Route {
   SUMMONERS,
   HISTORY,
-  GENRATOR,
+  GENERATOR,
   OVERVIEW,
   CHAMPIONS,
 }
@@ -65,13 +66,13 @@ export const ROUTES: ForEachEnum<Route, RouteConfig> = {
     RouteTo: MatchHistory,
     value: Route.HISTORY,
   },
-  [Route.GENRATOR]: {
+  [Route.GENERATOR]: {
     pathname: "/generator",
     to: pathGenerator("/generator"),
     icon: <GroupAdd />,
     label: "Generator",
-    RouteTo: TeamGenerator,
-    value: Route.GENRATOR,
+    RouteTo: TeamGeneratorBeta,
+    value: Route.GENERATOR,
   },
   [Route.OVERVIEW]: {
     pathname: "/overview",

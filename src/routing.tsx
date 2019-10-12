@@ -123,10 +123,10 @@ function pathGenerator(pathname: string) {
   return (location: Location) => ({ ...location, pathname });
 }
 
-const DEFAULT_SESSION = Season.THREE;
+const DEFAULT_SEASON = Season.THREE;
 export function parseSeasonQuery(location: Location): Season {
   const match = location.search.match(/s=(.)/);
-  if (match === null) return Season.THREE;
+  if (match === null) return DEFAULT_SEASON;
 
   const seasonQuery = match[1];
 
@@ -151,4 +151,4 @@ export function parseRoute(location: Location): Route {
   return targetRoute.value;
 }
 
-export const DEFAULT_LOCATION = `${ROUTES[DEFAULT_ROUTE].pathname}?s=${SEASON_QUERIES[DEFAULT_SESSION].query}`;
+export const DEFAULT_LOCATION = `${ROUTES[DEFAULT_ROUTE].pathname}?s=${SEASON_QUERIES[DEFAULT_SEASON].query}`;

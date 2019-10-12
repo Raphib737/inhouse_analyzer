@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@material-ui/styles";
+import { styled, ThemeProvider } from "@material-ui/styles";
 import React, { Component } from "react";
 import {
   BrowserRouter as Router,
@@ -11,6 +11,15 @@ import "./App.css";
 import { Header } from "./components/Header";
 import { DEFAULT_LOCATION, ROUTES, Season } from "./routing";
 import { THEME } from "./theme";
+
+const RouteOutlet = styled("div")<typeof THEME>(({ theme }) => ({
+  width: "100vw",
+  height: "calc(100vh - 72px)",
+  [theme.breakpoints.down("xs")]: {
+    height: "calc(100vh - 112px)",
+  },
+  overflow: "scroll",
+}));
 
 export class App extends Component {
   state = {
@@ -72,7 +81,9 @@ export class App extends Component {
 
     const routes = Object.values(ROUTES).map(({ value, pathname, RouteTo }) => (
       <Route key={value} path={pathname}>
-        <RouteTo data={this.state.response} />
+        <RouteOutlet>
+          <RouteTo data={this.state.response} />
+        </RouteOutlet>
       </Route>
     ));
 

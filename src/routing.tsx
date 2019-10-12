@@ -20,7 +20,7 @@ type ForEachEnum<E extends Route | Season, T> = {
 export enum Route {
   SUMMONERS,
   HISTORY,
-  GENRATOR,
+  GENERATOR,
   OVERVIEW,
   CHAMPIONS,
 }
@@ -65,13 +65,13 @@ export const ROUTES: ForEachEnum<Route, RouteConfig> = {
     RouteTo: MatchHistory,
     value: Route.HISTORY,
   },
-  [Route.GENRATOR]: {
+  [Route.GENERATOR]: {
     pathname: "/generator",
     to: pathGenerator("/generator"),
     icon: <GroupAdd />,
     label: "Generator",
     RouteTo: TeamGenerator,
-    value: Route.GENRATOR,
+    value: Route.GENERATOR,
   },
   [Route.OVERVIEW]: {
     pathname: "/overview",

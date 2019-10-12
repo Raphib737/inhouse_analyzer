@@ -20,7 +20,7 @@ type ForEachEnum<E extends Route | Season, T> = {
 export enum Route {
   SUMMONERS,
   HISTORY,
-  GENRATOR,
+  GENERATOR,
   OVERVIEW,
   CHAMPIONS,
 }
@@ -65,13 +65,13 @@ export const ROUTES: ForEachEnum<Route, RouteConfig> = {
     RouteTo: MatchHistory,
     value: Route.HISTORY,
   },
-  [Route.GENRATOR]: {
+  [Route.GENERATOR]: {
     pathname: "/generator",
     to: pathGenerator("/generator"),
     icon: <GroupAdd />,
     label: "Generator",
     RouteTo: TeamGenerator,
-    value: Route.GENRATOR,
+    value: Route.GENERATOR,
   },
   [Route.OVERVIEW]: {
     pathname: "/overview",
@@ -122,10 +122,10 @@ function pathGenerator(pathname: string) {
   return (location: Location) => ({ ...location, pathname });
 }
 
-const DEFAULT_SESSION = Season.THREE;
+const DEFAULT_SEASON = Season.THREE;
 export function parseSeasonQuery(location: Location): Season {
   const match = location.search.match(/s=(.)/);
-  if (match === null) return Season.THREE;
+  if (match === null) return DEFAULT_SEASON;
 
   const seasonQuery = match[1];
 
@@ -150,4 +150,4 @@ export function parseRoute(location: Location): Route {
   return targetRoute.value;
 }
 
-export const DEFAULT_LOCATION = `${ROUTES[DEFAULT_ROUTE].pathname}?s=${SEASON_QUERIES[DEFAULT_SESSION].query}`;
+export const DEFAULT_LOCATION = `${ROUTES[DEFAULT_ROUTE].pathname}?s=${SEASON_QUERIES[DEFAULT_SEASON].query}`;

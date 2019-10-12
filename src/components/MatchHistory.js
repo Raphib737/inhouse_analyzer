@@ -121,7 +121,7 @@ class MatchHistory extends Component {
           let n = (
             <div className="matchupContainer">
               <div className="matchup">
-                <div className="matchupStats">{sOne["summoner"]} </div>
+                <div className="matchupStats">{sOne["summoner"]} ({sOne["performance_rank"]}) </div>
 
                 <div className="matchupExtraStats">
                   <div className="extraStatDiv">
@@ -176,7 +176,7 @@ class MatchHistory extends Component {
               </div>
 
               <div className="matchup">
-                <div className="matchupStats">{sTwo["summoner"]}</div>
+                <div className="matchupStats">({sTwo["performance_rank"]}) {sTwo["summoner"]} </div>
 
                 <div className="matchupChampionLeft">
                   <img

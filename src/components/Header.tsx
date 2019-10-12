@@ -1,6 +1,7 @@
 import {
   AppBar,
   FormControl,
+  Hidden,
   InputLabel,
   makeStyles,
   MenuItem,
@@ -25,13 +26,14 @@ import {
   SEASON_QUERIES,
 } from "../routing";
 
-const AntTabs = withStyles((theme) => ({
+const ResponsiveTabs = withStyles((theme) => ({
   indicator: {
     backgroundColor: theme.palette.secondary.main,
   },
 }))(Tabs);
 
-const AntTab: any = withStyles((theme) => ({
+// tslint:disable-next-line: no-any See: https://github.com/mui-org/material-ui/issues/15827
+const ResponsiveTab: any = withStyles((theme) => ({
   root: {
     textTransform: "none",
     fontWeight: theme.typography.fontWeightRegular,
@@ -91,9 +93,6 @@ const useStyles = makeStyles((theme) => ({
   },
   currentSeason: {
     paddingRight: theme.spacing(2),
-    [theme.breakpoints.down("md")]: {
-      display: "none",
-    },
   },
   select: {
     [theme.breakpoints.up("sm")]: {
@@ -135,14 +134,16 @@ export function Header({ location, history, onSeasonChange }: HeaderProps) {
   };
 
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("sm"));
+  const isXlScreen = useMediaQuery(theme.breakpoints.up("xl"));
 
   const routes = Object.values(ROUTES).map(({ to, icon, label, value }) => (
-    <AntTab
+    <ResponsiveTab
       key={value}
       component={Link}
       to={to}
       icon={icon}
-      label={!isMobile ? label : null}
+      label={isTablet ? null : label}
       value={value}
     />
   ));
@@ -150,24 +151,13 @@ export function Header({ location, history, onSeasonChange }: HeaderProps) {
   const seasons = Object.values(SEASON_QUERIES).map(
     ({ value, label, shorthand }) => (
       <MenuItem key={value} value={value}>
-        {!isMobile ? label : shorthand}
+        {isMobile ? shorthand : label}
       </MenuItem>
     )
   );
 
-  const titleVariant = useMediaQuery(theme.breakpoints.up("xl")) ? "h4" : "h5";
-  const currentSeasonVariant = useMediaQuery(theme.breakpoints.up("xl"))
-    ? "h6"
-    : "subtitle1";
-  const inputLabel =
-    useMediaQuery(theme.breakpoints.down("md")) && !isMobile ? (
-      <InputLabel shrink={true} className={classes.inputLabel}>
-        Current Season
-      </InputLabel>
-    ) : null;
-
-  const desktopTabs = !isMobile ? (
-    <AntTabs
+  const tabs = (
+    <ResponsiveTabs
       value={route}
       className={classes.navigation}
       variant="standard"
@@ -175,42 +165,36 @@ export function Header({ location, history, onSeasonChange }: HeaderProps) {
       onChange={changeRoute}
     >
       {routes}
-    </AntTabs>
-  ) : null;
-
-  const mobileTabs = isMobile ? (
-    <AntTabs
-      value={route}
-      className={classes.navigation}
-      variant="standard"
-      centered={true}
-      onChange={changeRoute}
-    >
-      {routes}
-    </AntTabs>
-  ) : null;
+    </ResponsiveTabs>
+  );
 
   return (
     <AppBar position="sticky">
       <Toolbar>
         <Typography
-          variant={titleVariant}
+          variant={isXlScreen ? "h4" : "h5"}
           className={`${classes.glow} ${classes.title}`}
           color="secondary"
           noWrap={true}
         >
           Inhouse Analyzer
         </Typography>
-        {desktopTabs}
+        <Hidden xsDown={true}>{tabs}</Hidden>
         <div className={classes.seasons}>
-          <Typography
-            variant={currentSeasonVariant}
-            className={classes.currentSeason}
-          >
-            Current Season:
-          </Typography>
+          <Hidden mdDown={true}>
+            <Typography
+              variant={isXlScreen ? "h6" : "subtitle1"}
+              className={classes.currentSeason}
+            >
+              Current Season:
+            </Typography>
+          </Hidden>
           <FormControl>
-            {inputLabel}
+            <Hidden only={["xs", "lg", "xl"]}>
+              <InputLabel shrink={true} className={classes.inputLabel}>
+                Current Season
+              </InputLabel>
+            </Hidden>
             <Select
               value={season}
               onChange={selectSeason}
@@ -221,7 +205,9 @@ export function Header({ location, history, onSeasonChange }: HeaderProps) {
           </FormControl>
         </div>
       </Toolbar>
-      {mobileTabs}
+      <Hidden smUp={true}>
+        <Toolbar>{tabs}</Toolbar>
+      </Hidden>
     </AppBar>
   );
 }

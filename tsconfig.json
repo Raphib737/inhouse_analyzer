@@ -15,7 +15,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
@@ -24,5 +24,6 @@
     "pretty": true,
     "sourceMap": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/lib"]
 }

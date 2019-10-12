@@ -1,6 +1,6 @@
+import React, { Component } from "react";
 import "../App.css";
 
-import React, { Component } from "react";
 
 class TeamGenerator extends Component {
   constructor(props) {
@@ -364,7 +364,7 @@ class TeamGenerator extends Component {
   }
   render() {
     let d = this.props.data;
-    if (typeof d == "object") {
+    if (d !== null) {
       d = d["summoners"];
 
       var playersCon = [];

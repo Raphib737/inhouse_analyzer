@@ -51,6 +51,7 @@ a:hover {
   overflow: hidden;
   padding: 2%;
   text-align: center;
+  position: relative
 }
 
 .userProfiles {

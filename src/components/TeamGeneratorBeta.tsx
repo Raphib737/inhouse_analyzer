@@ -22,40 +22,41 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
+  const summonerDropDown = [];
 
-  console.log();
-  if(props !== null){
-    for(const s of Object.keys(props['summoners'])){
-      console.log(s);
+  if(props['data']!=null){
+    const summoners = props['data']['summoners']['sorted_summoners'];
+    for(let s in summoners){
+      summonerDropDown.push(<MenuItem>{summoners[s]}</MenuItem>);
     }
 
-    const summonerMenu = 
-      <div>
-        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-          Open Menu
-        </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </div>;
+  const summoner =
+  <div>
+    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      Summoners
+    </Button>
+    <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+    {summonerDropDown}
+    </Menu>
+  </div>;
 
-    const infoContainer = <div>{summonerMenu}</div>;
-  }
-
+  
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="md">
-        <Typography children={infoContainer} component="div" style={{ backgroundColor: 'WHITE', width: '819px', height: '800vh'}} />
+        <Typography children={summoner} component="div" style={{ backgroundColor: 'WHITE', width: '819px', height: '800vh'}} />
       </Container>
     </React.Fragment>
   )
+  };
+
+  return (<div></div>);
 };

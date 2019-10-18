@@ -71,7 +71,11 @@ export const ROUTES: ForEachEnum<Route, RouteConfig> = {
     to: pathGenerator("/generator"),
     icon: <GroupAdd />,
     label: "Generator",
+<<<<<<< HEAD
     RouteTo: TeamGeneratorBeta,
+=======
+    RouteTo: TeamGenerator,
+>>>>>>> 498122dd8999ce94781450dd12b9d2d05433c3ae
     value: Route.GENERATOR,
   },
   [Route.OVERVIEW]: {

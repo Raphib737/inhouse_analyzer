@@ -103,21 +103,52 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       summonerDropDown.push(<MenuItem><Button onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
     }
     
-  const summoner =
-  <div>
-    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      Summoners
-    </Button>
-    <Menu
-      id="simple-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-    >
-    {summonerDropDown}
-    </Menu>{selectedTable}
-  </div>;
+    const blueTable =
+      <Paper className={classes.root}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Blue Team ()</TableCell>
+              <TableCell align="right">Win&nbsp;%</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          </TableBody>
+        </Table>
+        </Paper>    
+    
+    const redTable =
+      <Paper className={classes.root}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell> Red Team ()</TableCell>
+              <TableCell align="right">Win&nbsp;%</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          </TableBody>
+        </Table>
+        </Paper>    
+
+    const summoner =
+    <div>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+        Summoners
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+      {summonerDropDown}
+      </Menu>
+      {selectedTable}
+      {blueTable}
+      {redTable}
+    </div>;
 
   return (
     <React.Fragment>

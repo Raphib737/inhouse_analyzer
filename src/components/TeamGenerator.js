@@ -29,7 +29,7 @@ class TeamGenerator extends Component {
     event.preventDefault();
     var ps = this.state.players,
       d = {},
-      summs = this.props.data["summoners"]["sorted_summoners"],
+      summs = this.props.data["summoners"]["sorted_summoners_matchmaking"],
       p = this.state.player;
     for (var i in summs) {
       if (summs[i].toLowerCase() == this.state.player.toLowerCase()) {
@@ -229,10 +229,10 @@ class TeamGenerator extends Component {
     d = d["summoners"];
 
     var ps = this.state.players.slice();
-    for (var i in d["sorted_summoners"]) {
-      if (ps.includes(d["sorted_summoners"][i])) {
-        rankedTeam.push(d[d["sorted_summoners"][i]]);
-        ps.splice(ps.indexOf(d["sorted_summoners"][i]), 1);
+    for (var i in d["sorted_summoners_matchmaking"]) {
+      if (ps.includes(d["sorted_summoners_matchmaking"][i])) {
+        rankedTeam.push(d[d["sorted_summoners_matchmaking"][i]]);
+        ps.splice(ps.indexOf(d["sorted_summoners_matchmaking"][i]), 1);
       }
     }
 

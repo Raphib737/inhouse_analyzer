@@ -24,16 +24,26 @@ const useStyles = makeStyles({
   root: {
     width: '50%',
     overflowX: 'auto',
-    marginLeft: '25%'
+    marginLeft: '25%',
+    marginRight: '25%'
+  },
+  teams:{
+    width:'25%',
+    overflowX: 'auto',
+    float:'left',
+    marginLeft:'20%'
   },
   table: {
-    minWidth: 250,
+    minWidth: 100,
   },
+  button: {background:'gray'},
+  dropdownButton:{width:'100%'}
 });
 
 
 export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -41,12 +51,10 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   const [activeSummoners, setActiveSummoners] = useState([] as string[]);
 
   const addSummoner = (summoner:string) => {
-    console.log("Adding summoner..." + summoner);
     setActiveSummoners([...activeSummoners,summoner])
   };
 
   const removeSummoner = (index:number) => {
-    console.log("Removing summoner..." + activeSummoners[index]);
     activeSummoners.splice(index,1);
     setActiveSummoners([...activeSummoners]);
   };
@@ -62,12 +70,56 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       }
     }
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const classes = useStyles();
+
+  const [blueTeam, setBlueTeam] = useState([] as string[]);
+  const [bWinRate,setBlueWinRate] = useState(0);
+  
+  const [redTeam, setRedTeam] = useState([] as string[]);
+  const [rWinRate,setRedWinRate] = useState(0);
+
+  const teamGeneratorClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const split = event.currentTarget.textContent;
+    if(split !== null){
+      const regExp = /\(([^)]+)\)/;
+      const match = regExp.exec(split);
+      if(match !== null){
+        const sequence = match[1];
+        let seqIndex = 0;
+        
+        const bT = [],rT = [];
+        for(let summIndex in activeSummoners){
+          if(sequence[seqIndex] == "a"){
+            bT.push(activeSummoners[summIndex])
+          }else{
+            rT.push(activeSummoners[summIndex])
+          }
+          seqIndex +=1;
+        }
+
+        setBlueTeam(bT);
+        setRedTeam(rT);
+
+        let bWinRate = 0, rWinRate = 0;
+        for(let i in bT){
+          bWinRate += props['data']['summoners'][bT[i]]['win_rate'];
+        }
+        for(let i in rT){
+          rWinRate += props['data']['summoners'][rT[i]]['win_rate'];
+        }
+        setBlueWinRate(bWinRate / bT.length);
+        setRedWinRate(rWinRate / rT.length);
+      }
+    }
+  }
+
   if(props['data']!=null){
+    
     const activeSummonersTableBody = [];
     for(let index in activeSummoners){
       activeSummonersTableBody.push({
@@ -87,7 +139,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
         </TableHead>
         <TableBody>
           {activeSummonersTableBody.map(row => (
-            <TableRow key={row.summoner}>
+            <TableRow>
               <TableCell component="th" scope="row">
                 {row.summoner}
               </TableCell>
@@ -100,33 +152,51 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     const summonerDropDown = [];
     const summoners = props['data']['summoners']['sorted_summoners'];
     for(let s in summoners){
-      summonerDropDown.push(<MenuItem><Button onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
+      summonerDropDown.push(<MenuItem><Button className={classes.dropdownButton} onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
     }
     
+    const blueTableBody = [];
+    for(let index in blueTeam){
+      blueTableBody.push({"summoner": blueTeam[index]});
+    }
+
     const blueTable =
-      <Paper className={classes.root}>
+      <Paper className={classes.teams}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Blue Team ()</TableCell>
-              <TableCell align="right">Win&nbsp;%</TableCell>
+              <TableCell>Blue Team ({bWinRate.toFixed(2)}%)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {blueTableBody.map(row => (
+            <TableRow key={row.summoner}>
+              <TableCell component="th" scope="row">{row.summoner}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
         </Paper>    
     
+    const redTableBody = [];
+    for(let index in redTeam){
+      redTableBody.push({"summoner":redTeam[index]});
+    }
+    
     const redTable =
-      <Paper className={classes.root}>
+      <Paper className={classes.teams}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell> Red Team ()</TableCell>
-              <TableCell align="right">Win&nbsp;%</TableCell>
+              <TableCell> Red Team ({rWinRate.toFixed(2)}%)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+          {redTableBody.map(row => (
+            <TableRow>
+              <TableCell component="th" scope="row">{row.summoner}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
         </Paper>    
@@ -136,6 +206,10 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         Summoners
       </Button>
+
+      <Button variant="contained" onClick={teamGeneratorClick} className={classes.button}> Split A (ababbababa) </Button>
+      <Button variant="contained" onClick={teamGeneratorClick} className={classes.button}> Split B (aabbbabbaa) </Button>
+      <Button variant="contained" onClick={teamGeneratorClick} className={classes.button}> Split C (abbbabaaab) </Button>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

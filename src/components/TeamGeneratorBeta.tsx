@@ -119,7 +119,6 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   }
 
   if(props['data']!=null){
-    
     const activeSummonersTableBody = [];
     for(let index in activeSummoners){
       activeSummonersTableBody.push({

@@ -38,7 +38,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     setAnchorEl(event.currentTarget);
   };
 
-  const [activeSummoners, setActiveSummoners] = useState([] as string[])
+  const [activeSummoners, setActiveSummoners] = useState([] as string[]);
 
   const addSummoner = (summoner:string) => {
     console.log("Adding summoner..." + summoner);
@@ -62,14 +62,12 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       }
     }
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const classes = useStyles();
   if(props['data']!=null){
-    
     const activeSummonersTableBody = [];
     for(let index in activeSummoners){
       activeSummonersTableBody.push({

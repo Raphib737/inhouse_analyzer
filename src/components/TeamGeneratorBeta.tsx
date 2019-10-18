@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -34,9 +34,35 @@ const useStyles = makeStyles({
 
 export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+
+  const [activeSummoners, setActiveSummoners] = useState([] as string[])
+  
+  const addSummoner = (summoner:string) => {
+    console.log("Adding summoner..." + summoner);
+    setActiveSummoners([...activeSummoners,summoner])
+  };
+
+  const removeSummoner = (index:number) => {
+    console.log("Removing summoner..." + activeSummoners[index]);
+    activeSummoners.splice(index,1);
+    setActiveSummoners([...activeSummoners]);
+  }
+
+  const handleDropDownClick = (event:  React.MouseEvent<HTMLButtonElement>) => {
+    console.log(activeSummoners);
+    const summ = event.currentTarget.textContent;
+    if(summ !== null && summ !== "Summoners"){
+      let i = activeSummoners.indexOf(summ);
+      if(i === -1 ){
+        addSummoner(summ);
+      }else if(i > -1){
+        removeSummoner(i)
+      }
+    }
   };
 
   const handleClose = () => {
@@ -47,6 +73,15 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
 
   if(props['data']!=null){
     
+    const activeSummonersTableBody = [];
+    for(let index in activeSummoners){
+      activeSummonersTableBody.push({
+        "summoner":activeSummoners[index],
+        "winRate":props['data']['summoners'][activeSummoners[index]]['win rate']
+      });
+    }
+
+    console.log(props['data']['summoners']);
     const selectedTable =
       <Paper className={classes.root}>
       <Table className={classes.table} aria-label="simple table">
@@ -57,7 +92,13 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
           </TableRow>
         </TableHead>
         <TableBody>
-
+          {activeSummonersTableBody.map(row => (
+            <TableRow key={row.summoner}>
+              <TableCell component="th" scope="row">
+                {row.summoner}
+              </TableCell>
+              <TableCell align="right">{row['winRate']}</TableCell></TableRow>
+          ))}
         </TableBody>
       </Table>
       </Paper>    
@@ -65,7 +106,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     const summonerDropDown = [];
     const summoners = props['data']['summoners']['sorted_summoners'];
     for(let s in summoners){
-      summonerDropDown.push(<MenuItem>{summoners[s]}</MenuItem>);
+      summonerDropDown.push(<MenuItem><Button onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
     }
   const summoner =
   <div>

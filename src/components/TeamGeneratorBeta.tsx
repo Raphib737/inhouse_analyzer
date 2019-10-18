@@ -38,9 +38,8 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     setAnchorEl(event.currentTarget);
   };
 
-
   const [activeSummoners, setActiveSummoners] = useState([] as string[])
-  
+
   const addSummoner = (summoner:string) => {
     console.log("Adding summoner..." + summoner);
     setActiveSummoners([...activeSummoners,summoner])
@@ -50,10 +49,9 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     console.log("Removing summoner..." + activeSummoners[index]);
     activeSummoners.splice(index,1);
     setActiveSummoners([...activeSummoners]);
-  }
+  };
 
   const handleDropDownClick = (event:  React.MouseEvent<HTMLButtonElement>) => {
-    console.log(activeSummoners);
     const summ = event.currentTarget.textContent;
     if(summ !== null && summ !== "Summoners"){
       let i = activeSummoners.indexOf(summ);
@@ -70,7 +68,6 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   };
 
   const classes = useStyles();
-
   if(props['data']!=null){
     
     const activeSummonersTableBody = [];
@@ -81,13 +78,12 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       });
     }
 
-    console.log(props['data']['summoners']);
     const selectedTable =
       <Paper className={classes.root}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Selected Summoners</TableCell>
+            <TableCell>Selected Summoners ({activeSummoners.length})</TableCell>
             <TableCell align="right">Win&nbsp;%</TableCell>
           </TableRow>
         </TableHead>
@@ -108,6 +104,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     for(let s in summoners){
       summonerDropDown.push(<MenuItem><Button onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
     }
+    
   const summoner =
   <div>
     <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
@@ -132,7 +129,8 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       </Container>
     </React.Fragment>
   )
-  };
+  }else{
+    return (<div></div>);
+  }
 
-  return (<div></div>);
 };

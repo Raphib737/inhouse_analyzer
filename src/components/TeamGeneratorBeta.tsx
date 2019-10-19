@@ -209,5 +209,4 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
   }else{
     return (<div></div>);
   }
-
 };

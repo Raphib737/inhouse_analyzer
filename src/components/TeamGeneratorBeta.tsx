@@ -40,13 +40,13 @@ const useStyles = makeStyles({
   dropdownButton:{width:'100%'}
 });
 
-type TeamStats = {
+type TeamTableProps = {
   color: string,
   summoners: string[],
   winRate: number
 }
 
-export const TeamTables = ({ color, summoners, winRate}: TeamStats)=>
+export const TeamTable = ({ color, summoners, winRate}: TeamTableProps)=>
   <Paper>
     <Table>
       <TableHead>
@@ -194,8 +194,8 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       {summonerDropDown}
       </Menu>
       {selectedTable}
-      <TeamTables color="Blue" summoners={blueTeam} winRate={bWinRate}/>
-      <TeamTables color="Red" summoners={redTeam} winRate={rWinRate}/>
+      <TeamTable color="Blue" summoners={blueTeam} winRate={bWinRate}/>
+      <TeamTable color="Red" summoners={redTeam} winRate={rWinRate}/>
     </div>;
 
   return (

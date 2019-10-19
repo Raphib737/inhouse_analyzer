@@ -175,16 +175,6 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
       summonerDropDown.push(<MenuItem><Button className={classes.dropdownButton} onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
     }
     
-    const blueTableBody = [];
-    for(const index in blueTeam){
-      blueTableBody.push({"summoner": blueTeam[index]});
-    }
-
-    const redTableBody = [];
-    for(const index in redTeam){
-      redTableBody.push({"summoner":redTeam[index]});
-    }
-    
     const summoner =
     <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>

@@ -93,7 +93,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
         let seqIndex = 0;
         
         const bT = [],rT = [];
-        for(let summIndex in activeSummoners){
+        for(const summIndex in activeSummoners){
           if(sequence[seqIndex] == "a"){
             bT.push(activeSummoners[summIndex])
           }else{
@@ -106,10 +106,10 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
         setRedTeam(rT);
 
         let bWinRate = 0, rWinRate = 0;
-        for(let i in bT){
+        for(const i in bT){
           bWinRate += props['data']['summoners'][bT[i]]['win_rate'];
         }
-        for(let i in rT){
+        for(const i in rT){
           rWinRate += props['data']['summoners'][rT[i]]['win_rate'];
         }
         setBlueWinRate(bWinRate / bT.length);
@@ -120,7 +120,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
 
   if(props['data']!=null){
     const activeSummonersTableBody = [];
-    for(let index in activeSummoners){
+    for(const index in activeSummoners){
       activeSummonersTableBody.push({
         "summoner":activeSummoners[index],
         "winRate":props['data']['summoners'][activeSummoners[index]]['win rate']
@@ -150,12 +150,12 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     
     const summonerDropDown = [];
     const summoners = props['data']['summoners']['sorted_summoners'];
-    for(let s in summoners){
+    for(const s in summoners){
       summonerDropDown.push(<MenuItem><Button className={classes.dropdownButton} onClick={handleDropDownClick}>{summoners[s]}</Button></MenuItem>);
     }
     
     const blueTableBody = [];
-    for(let index in blueTeam){
+    for(const index in blueTeam){
       blueTableBody.push({"summoner": blueTeam[index]});
     }
 
@@ -178,7 +178,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
         </Paper>    
     
     const redTableBody = [];
-    for(let index in redTeam){
+    for(const index in redTeam){
       redTableBody.push({"summoner":redTeam[index]});
     }
     

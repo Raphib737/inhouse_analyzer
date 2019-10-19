@@ -244,7 +244,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
     );
 
     return (
-      <React.Fragment>
+      <>
         <CssBaseline />
         <Container maxWidth="md">
           <Typography
@@ -257,7 +257,7 @@ export default function TeamGeneratorBeta(props: TeamGeneratorProp) {
             }}
           />
         </Container>
-      </React.Fragment>
+      </>
     );
   } else {
     return <div></div>;

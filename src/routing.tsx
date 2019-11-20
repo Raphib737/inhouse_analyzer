@@ -8,10 +8,11 @@ import {
 import { Location } from "history";
 import React from "react";
 import Champions from "./components/Champions";
-import MatchHistory from "./components/MatchHistory";
 import Overview from "./components/Overview";
 import Summoners from "./components/Summoners";
 import TeamGenerator from "./components/TeamGenerator";
+import { MatchHistoryPage } from "./pages/match_history/page";
+import { PageComponentProps } from "./types";
 
 type ForEachEnum<E extends Route | Season, T> = {
   [route in E]: T;
@@ -37,7 +38,7 @@ interface RouteConfig {
   to: (location: Location) => Location;
   icon: JSX.Element;
   label: string;
-  RouteTo: React.JSXElementConstructor<{ data: null | {} }>;
+  RouteTo: React.JSXElementConstructor<PageComponentProps>;
   value: Route;
 }
 
@@ -62,7 +63,7 @@ export const ROUTES: ForEachEnum<Route, RouteConfig> = {
     to: pathGenerator("/history"),
     icon: <ViewDay />,
     label: "History",
-    RouteTo: MatchHistory,
+    RouteTo: MatchHistoryPage,
     value: Route.HISTORY,
   },
   [Route.GENERATOR]: {

@@ -28,6 +28,7 @@ export class App extends Component {
     season1Data: null,
     season2Data: null,
     season3Data: null,
+    season4Data: null,
   };
 
   constructor(props: {}) {
@@ -71,6 +72,8 @@ export class App extends Component {
             ? this.state.season2Data
             : season === Season.THREE
             ? this.state.season3Data
+            : season === Season.FOUR
+            ? this.state.season4Data
             : this.state.overallData,
       });
     };

@@ -35,17 +35,18 @@ export interface MatchupEntry {
 }
 
 export type Matchup = [MatchupEntry, MatchupEntry];
+export interface GameMatchups {
+  BOTTOM: Matchup;
+  JUNGLE: Matchup;
+  MIDDLE: Matchup;
+  TOP: Matchup;
+  SUPPORT: Matchup;
+}
 
 export interface Match {
   winning_team_color: string;
   date: string;
   game_duration: string;
   performance_scores: { [summoner: string]: { score: number; rank: number } };
-  matchups: {
-    BOTTOM: Matchup;
-    JUNGLE: Matchup;
-    MIDDLE: Matchup;
-    TOP: Matchup;
-    SUPPORT: Matchup;
-  };
+  matchups: GameMatchups;
 }

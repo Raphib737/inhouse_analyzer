@@ -38,17 +38,21 @@ export class App extends Component {
       this.callApi(1),
       this.callApi(2),
       this.callApi(3),
+      this.callApi(4),
       this.callApi("overall"),
     ])
-      .then(([season1Data, season2Data, season3Data, overallData]) => {
-        this.setState({
-          season1Data,
-          season2Data,
-          season3Data,
-          overallData,
-          response: season3Data,
-        });
-      })
+      .then(
+        ([season1Data, season2Data, season3Data, season4Data, overallData]) => {
+          this.setState({
+            season1Data,
+            season2Data,
+            season3Data,
+            season4Data,
+            overallData,
+            response: season4Data,
+          });
+        }
+      )
       .catch((err) => {
         console.error(err);
       });

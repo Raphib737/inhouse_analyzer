@@ -129,7 +129,7 @@ function pathGenerator(pathname: string) {
   return (location: Location) => ({ ...location, pathname });
 }
 
-const DEFAULT_SEASON = Season.THREE;
+const DEFAULT_SEASON = Season.FOUR;
 export function parseSeasonQuery(location: Location): Season {
   const match = location.search.match(/s=(.)/);
   if (match === null) return DEFAULT_SEASON;

@@ -1,6 +1,7 @@
-import { Avatar, Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import { GameMatchups, MatchupEntry } from "../../types/match_history";
+import { ChampionAvatar } from "../../../components/ChampionAvatar";
+import { GameMatchups, MatchupEntry } from "../../../types/match_history";
 
 export interface MatchMvpProps {
   matchups: GameMatchups;
@@ -32,12 +33,6 @@ export function MatchMvp({ matchups }: MatchMvpProps) {
 
 function formatKda(kills: number, deaths: number, assists: number): string {
   return `${kills} / ${deaths} / ${assists}`;
-}
-
-function ChampionAvatar({ champion }: { champion: string }) {
-  const src = `/images/champion_squares/${champion}.png`;
-
-  return <Avatar src={src} />;
 }
 
 function getMatchMvp(matchups: GameMatchups): MatchupEntry {

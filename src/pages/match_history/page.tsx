@@ -2,7 +2,7 @@ import { Grid, makeStyles, Paper } from "@material-ui/core";
 import React from "react";
 import { PageComponentProps } from "../../types";
 import { PageContainer } from "../page_container";
-import { MatchCard } from "./match";
+import { MatchCard } from "./MatchCard/MatchCard";
 
 const useStyles = makeStyles(() => ({
   root: {

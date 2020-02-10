@@ -2,7 +2,7 @@
   "name": "inhouse_analyzer",
   "version": "1.0.0",
   "engines": {
-    "yarn": "1.19.1"
+    "yarn": "1.22.0"
   },
   "scripts": {
     "start": "node server.js",

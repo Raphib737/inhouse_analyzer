@@ -29,6 +29,7 @@ export class App extends Component {
     season2Data: null,
     season3Data: null,
     season4Data: null,
+    season5Data: null,
   };
 
   constructor(props: {}) {
@@ -39,17 +40,26 @@ export class App extends Component {
       this.callApi(2),
       this.callApi(3),
       this.callApi(4),
+      this.callApi(5),
       this.callApi("overall"),
     ])
       .then(
-        ([season1Data, season2Data, season3Data, season4Data, overallData]) => {
+        ([
+          season1Data,
+          season2Data,
+          season3Data,
+          season4Data,
+          season5Data,
+          overallData,
+        ]) => {
           this.setState({
             season1Data,
             season2Data,
             season3Data,
             season4Data,
+            season5Data,
             overallData,
-            response: season4Data,
+            response: season5Data,
           });
         }
       )
@@ -78,6 +88,8 @@ export class App extends Component {
             ? this.state.season3Data
             : season === Season.FOUR
             ? this.state.season4Data
+            : season === Season.FIVE
+            ? this.state.season5Data
             : this.state.overallData,
       });
     };

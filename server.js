@@ -9,11 +9,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+var overviewSeason5Data = require("./overview_data/season_5.json");
 var overviewSeason4Data = require("./overview_data/season_4.json");
 var overviewSeason3Data = require("./overview_data/season_3.json");
 var overviewSeason2Data = require("./overview_data/season_2.json");
 var overviewSeason1Data = require("./overview_data/season_1.json");
 var overviewOverallData = require("./overview_data/overall.json");
+
+app.get("/api/season/5", (req, res) => {
+  res.send(overviewSeason5Data);
+});
 
 app.get("/api/season/4", (req, res) => {
   res.send(overviewSeason4Data);

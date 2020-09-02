@@ -31,6 +31,7 @@ export enum Season {
   TWO,
   THREE,
   FOUR,
+  FIVE,
 }
 
 interface RouteConfig {
@@ -123,13 +124,19 @@ export const SEASON_QUERIES: ForEachEnum<Season, SeasonQueryConfig> = {
     label: "Season 4",
     value: Season.FOUR,
   },
+  [Season.FIVE]: {
+    query: "5",
+    shorthand: "5",
+    label: "Season 5",
+    value: Season.FIVE,
+  },
 };
 
 function pathGenerator(pathname: string) {
   return (location: Location) => ({ ...location, pathname });
 }
 
-const DEFAULT_SEASON = Season.FOUR;
+const DEFAULT_SEASON = Season.FIVE;
 export function parseSeasonQuery(location: Location): Season {
   const match = location.search.match(/s=(.)/);
   if (match === null) return DEFAULT_SEASON;
@@ -144,6 +151,8 @@ export function parseSeasonQuery(location: Location): Season {
     ? Season.THREE
     : seasonQuery === "4"
     ? Season.FOUR
+    : seasonQuery === "5"
+    ? Season.FIVE
     : Season.OVERALL;
 }
 

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
 
-
 class TeamGenerator extends Component {
   constructor(props) {
     super();
@@ -362,6 +361,18 @@ class TeamGenerator extends Component {
       console.log("duplicate summoner");
     }
   }
+
+  shuffle(sourceArray) {
+    for (var i = 0; i < sourceArray.length - 1; i++) {
+      var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+
+      var temp = sourceArray[j];
+      sourceArray[j] = sourceArray[i];
+      sourceArray[i] = temp;
+    }
+    return sourceArray;
+  }
+
   render() {
     let d = this.props.data;
     if (d !== null) {
@@ -383,8 +394,8 @@ class TeamGenerator extends Component {
         );
       }
 
-      var bt = this.state.blueTeam,
-        rt = this.state.redTeam,
+      var bt = this.shuffle(this.state.blueTeam),
+        rt = this.shuffle(this.state.redTeam),
         btContainer = [],
         rtContainer = [];
 

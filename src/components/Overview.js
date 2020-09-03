@@ -24,7 +24,7 @@ class Overview extends Component {
       pickedC = [];
 
     let pw = prompt("Password:");
-    if (pw !== "idex") {
+    if (pw !== process.env.PW) {
       return <div></div>;
     }
 

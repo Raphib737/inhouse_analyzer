@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../App.css";
 import SummonerInDepth from "./SummonerInDepth";
 
-
 const importAll = (require) =>
   require.keys().reduce((acc, next) => {
     acc[next.replace("./", "")] = require(next);
@@ -21,6 +20,11 @@ class Summoners extends Component {
   render() {
     let d = this.props.data,
       sumElements = [];
+
+    let pw = prompt("Password:");
+    if (pw !== "idex") {
+      return <div></div>;
+    }
 
     if (d !== null && d["summoners"]) {
       d = d["summoners"];

@@ -156,7 +156,7 @@ export function parseSeasonQuery(location: Location): Season {
     : Season.OVERALL;
 }
 
-const DEFAULT_ROUTE = Route.SUMMONERS;
+const DEFAULT_ROUTE = Route.HISTORY;
 export function parseRoute(location: Location): Route {
   const targetRoute = Object.values(ROUTES).find(
     ({ pathname }) => location.pathname === pathname

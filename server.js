@@ -15,6 +15,8 @@ var overviewSeason3Data = require("./overview_data/season_3.json");
 var overviewSeason2Data = require("./overview_data/season_2.json");
 var overviewSeason1Data = require("./overview_data/season_1.json");
 var overviewOverallData = require("./overview_data/overall.json");
+var dotenv = require("dotenv");
+dotenv.config();
 
 app.get("/api/season/5", (req, res) => {
   res.send(overviewSeason5Data);
@@ -38,6 +40,10 @@ app.get("/api/season/1", (req, res) => {
 
 app.get("/api/season/overall", (req, res) => {
   res.send(overviewOverallData);
+});
+
+app.get("/api/pw", (req, res) => {
+  res.send({ PW: process.env.PW });
 });
 
 // production mode

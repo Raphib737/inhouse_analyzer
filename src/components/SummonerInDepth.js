@@ -25,7 +25,6 @@ class SummonerInDepth extends Component {
 
   render() {
     let d = this.props.data;
-    console.log(d);
     var roleElements = [];
     for (var i in d["role"]) {
       var champPics = [];
@@ -151,7 +150,6 @@ class SummonerInDepth extends Component {
 
     graphOptions["data"].push(wonData);
     graphOptions["data"].push(lostData);
-    console.log(graphOptions);
     partnersList.push(
       <div className="SpartnerGraph">
         <CanvasJSChart

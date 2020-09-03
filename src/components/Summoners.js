@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "../App.css";
 import SummonerInDepth from "./SummonerInDepth";
+import { ContactlessOutlined } from "@material-ui/icons";
+
+const dotenv = require("dotenv");
 
 const importAll = (require) =>
   require.keys().reduce((acc, next) => {
@@ -17,24 +20,37 @@ class Summoners extends Component {
     super();
   }
 
+  componentDidMount() {
+    const url = "/api/pw";
+    fetch(url)
+      .then((res) => (res = res.json()))
+      .then((res) => {
+        this.setState({ PW: res.PW });
+      });
+  }
+
   render() {
     let d = this.props.data,
       sumElements = [];
 
-    let pw = prompt("Password:");
-    if (pw !== process.env.PW) {
+    if (!this.state) {
       return <div></div>;
-    }
-
-    if (d !== null && d["summoners"]) {
-      d = d["summoners"];
-      for (var i in d["sorted_summoners"]) {
-        let dataToPass = d[d["sorted_summoners"][i]];
-        dataToPass["rank"] = parseInt(i) + 1;
-        sumElements.push(<SummonerInDepth data={dataToPass} />);
+    } else {
+      let pw = prompt("Password:");
+      if (this.state.PW !== pw) {
+        return <div></div>;
       }
+
+      if (d !== null && d["summoners"]) {
+        d = d["summoners"];
+        for (var i in d["sorted_summoners"]) {
+          let dataToPass = d[d["sorted_summoners"][i]];
+          dataToPass["rank"] = parseInt(i) + 1;
+          sumElements.push(<SummonerInDepth data={dataToPass} />);
+        }
+      }
+      return <div className="dataContainer">{sumElements}</div>;
     }
-    return <div className="dataContainer">{sumElements}</div>;
   }
 }
 

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../App.css";
 import SummonerProfiles from "./OverviewProfiles";
 
-
 const importAll = (require) =>
   require.keys().reduce((acc, next) => {
     acc[next.replace("./", "")] = require(next);
@@ -23,6 +22,11 @@ class Overview extends Component {
     var elements = [],
       bannedC = [],
       pickedC = [];
+
+    let pw = prompt("Password:");
+    if (pw !== "idex") {
+      return <div></div>;
+    }
 
     if (d !== null) {
       var bannedChamps = d["champions"]["banned champions"];

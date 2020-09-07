@@ -36,10 +36,10 @@ class Summoners extends Component {
     if (!this.state) {
       return <div></div>;
     } else {
-      let pw = prompt("Password:");
-      if (this.state.PW !== pw) {
-        return <div></div>;
-      }
+      // let pw = prompt("Password:");
+      // if (this.state.PW !== pw) {
+      //   return <div></div>;
+      // }
 
       if (d !== null && d["summoners"]) {
         d = d["summoners"];
